@@ -1,11 +1,11 @@
 import * as S from "./survey.styles";
 import { survey } from "./survey.data";
-// import PreferencePresenter from "../preferenceUnit/preference.container";
+import PreferenceComponent from "./preferenceUnit/preference.container";
 import { data } from "../../data";
 import { useState, useEffect } from "react";
 
 function SurveyPresenterPage(props) {
-  const [category, setCategory] = useState("");
+  const [preference, setPreference] = useState("");
   const [selectedOptions, setSelectedOptions] = useState([]);
   
   // 질문이 넘어갈 때마다 답변 데이터를 초기화하는 함수
@@ -54,9 +54,9 @@ function SurveyPresenterPage(props) {
     <S.Wrapper>
       <S.CloseBox> <S.Close src="/images/close.png" /> </S.CloseBox>
       <S.GroupBox>
-      {/* {props.page_number === "0" && (
-          <PreferencePresenter setCategory={setCategory} />
-      )} */}
+      {props.page_number === "1" && (
+          <PreferenceComponent setPreference={setPreference} />
+      )}
       </S.GroupBox>
       <S.Button>선택 완료</S.Button>
     </S.Wrapper>

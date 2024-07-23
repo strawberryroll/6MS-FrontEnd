@@ -18,14 +18,14 @@ export const CloseBox = styled.div`
 `;
 
 export const Close = styled.img`
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   padding: 10px;
 `;
 
 export const GroupBox = styled.div`
-  width: 95%;
-  height: 460px;
+  width: 100%;
+  height: 600px;
   background: grey;
   margin-top: 20px;
 `;

@@ -1,13 +1,16 @@
 import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
-  width: 375px;
-  height: 500px;
+  width: 100%;
+  height: 100%;
 `;
 
 export const Group = styled.span`
-  width: 98px;
-  height: 113px;
+  width: 99px;
+  height: 133px;
+  background: rgba(255, 100, 13, 0.2);
+  border-radius: 10px;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -17,29 +20,20 @@ export const Group = styled.span`
 export const RowGroup = styled.span`
   display: flex;
   justify-content: space-evenly;
-  padding: 20px 0px;
+  padding: 5px 0px;
 `;
 
-export const Character = styled.div`
-  width: "98px";
-  height: "113px";
-  background-color: #f0f0f0;
-  border-radius: 10px;
-  :hover {
-    background-color: #ffe5ed;
-    border: 1px solid #ff7ca3;
-  }
-`;
 export const Icon = styled.img`
-  width: 70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
   padding: 15px;
 `;
+
 export const Name = styled.div`
-  width: 55px;
+  width: 80px;
   height: 26px;
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 600;
   text-align: center;
   font-family: "Noto Sans KR";
 `;
