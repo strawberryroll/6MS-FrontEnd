@@ -1,5 +1,3 @@
-// survey.container.js
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { survey } from "./survey.data";
 import { useParams } from "react-router-dom";
@@ -9,7 +7,6 @@ function SurveyContainerPage() {
     const params = useParams();
     const page_number = params.id;
     const navigate = useNavigate();
-    const [isChecked, setIsChecked] = useState(false);
     
 
     const onClickPrev = () => { 
@@ -28,9 +25,7 @@ function SurveyContainerPage() {
     return (
         <SurveyPresenterPage
             page_number={page_number}
-            onClickPrev={onClickPrev}
             onClickNext={onClickNext}
-            isChecked={isChecked}
         />
     );
 }
