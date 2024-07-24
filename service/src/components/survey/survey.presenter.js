@@ -1,6 +1,7 @@
 import * as S from "./survey.styles";
 import { survey } from "./survey.data";
 import PreferenceComponent from "./preferenceUnit/preference.container";
+import PurposeComponent from "./purposeUnit/purpose.container";
 import { data } from "../../data";
 import { useState, useEffect } from "react";
 
@@ -54,6 +55,9 @@ function SurveyPresenterPage(props) {
     <S.Wrapper>
       <S.CloseBox> <S.Close src="/images/close.png" /> </S.CloseBox>
       <S.GroupBox>
+      {props.page_number === "0" && (
+          <PurposeComponent setPreference={setPreference} />
+      )}
       {props.page_number === "1" && (
           <PreferenceComponent setPreference={setPreference} />
       )}

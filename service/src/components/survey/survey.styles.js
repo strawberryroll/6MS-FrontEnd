@@ -26,7 +26,7 @@ export const Close = styled.img`
 export const GroupBox = styled.div`
   width: 100%;
   height: 600px;
-  background: grey;
+//   background: grey;
   margin-top: 20px;
 `;
 

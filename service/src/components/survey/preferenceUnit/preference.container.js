@@ -4,19 +4,18 @@ import { data } from "../../../data";
 export default function PreferenceComponent(props) {
   const onClickOption = (event) => {
     const preference = data.survey.preference;
-    const nameElement = event.currentTarget.querySelector(".Name");
+    const groupElement = event.currentTarget;
 
-    if (preference.includes(event.currentTarget.id)) {
-      preference.splice(preference.indexOf(event.currentTarget.id), 1);
-      nameElement.style.backgroundColor = "#f0f0f0";
-      nameElement.style.border = "none";
-    } else {
-      preference.push(event.currentTarget.id);
-      props.setPreference(event.currentTarget.id);
-      nameElement.style.backgroundColor = "#ffe5ed";
-      nameElement.style.border = "1px solid #ff7ca3";
+    if (preference.includes(groupElement.id)) { // 옵션 선택 안할 때
+      preference.splice(preference.indexOf(groupElement.id), 1);
+      groupElement.style.border = "none";
+    } else { // 옵션 선택 할 때
+      preference.push(groupElement.id);
+      props.setPreference(groupElement.id);
+      groupElement.style.border = "2px solid #FF640D";
     }
     console.log(data);
   };
+  
   return <PreferencePresenter onClickOption={onClickOption} />;
 }
