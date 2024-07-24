@@ -20,8 +20,8 @@ function SurveyContainerPage() {
     const onClickNext = () => { // 선택 완료를 눌렀을 때 다음으로 넘어감
     if (page_number < survey.length - 1) {
         navigate(`/survey/${Number(page_number) + 1}`);
-    } else if (page_number === survey.length - 1) {
-        navigate("/home");
+    } else if (page_number == survey.length - 1) {
+        navigate(`/home`);
     }
     };
 

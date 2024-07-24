@@ -6,7 +6,7 @@ import { data } from "../../data";
 import { useState, useEffect } from "react";
 
 function SurveyPresenterPage(props) {
-  const [preference, setPreference] = useState("");
+  const [preference, setPreference] = useState([]);
   const [purpose, setPurpose] = useState("");
   const [selectedOptions, setSelectedOptions] = useState([]);
   
@@ -63,14 +63,13 @@ function SurveyPresenterPage(props) {
           <PreferenceComponent setPreference={setPreference} />
       )}
       </S.GroupBox>
-      <S.Button onClick={props.onClickNext}>선택 완료</S.Button>
-      {/* <S.Button onClick={
+      <S.Button onClick={
               // selectedOptions.length > 0 ||
               (props.page_number === "0" && purpose !== "") ||
-              (props.page_number === "1" && preference !== "")
+              (props.page_number === "1" && preference.length > 0)
                 ? props.onClickNext : null}>
         선택 완료
-      </S.Button> */}
+      </S.Button>
     </S.Wrapper>
   );
 }
