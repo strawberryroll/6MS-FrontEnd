@@ -19,7 +19,9 @@ function App() {
           path='/survey/:id' 
           element={<SurveyPage data={data} />}></Route>
         <Route path='/home' element={<HomePage />}></Route>
-        <Route path='/recipe' element={<RecipePage />}></Route>
+        <Route 
+          path='/recipe/:id' 
+          element={<RecipePage data={data} />}></Route>
         <Route path='/my' element={<MyPage />}></Route>
       </Routes>
     </div>

@@ -1,11 +1,8 @@
-import React from 'react';
+import RecipeContainerPage from "../../components/recipe/recipe.container";
 
 function RecipePage() {
     return (
-        <div>
-            <h1>Recipe Page</h1>
-            <p>This is the recipe page of your application.</p>
-        </div>
+        <RecipeContainerPage />
     );
 }
 
