@@ -13,7 +13,6 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        {/* <Route path='/' element={<SurveyPage data={data} />}></Route> */}
         <Route path='/' element={<StartPage />}></Route>
         <Route path='/member' element={<MemberPage />}></Route>
         <Route 

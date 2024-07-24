@@ -7,9 +7,10 @@ import { useState, useEffect } from "react";
 
 function SurveyPresenterPage(props) {
   const [preference, setPreference] = useState("");
+  const [purpose, setPurpose] = useState("");
   const [selectedOptions, setSelectedOptions] = useState([]);
   
-  // 질문이 넘어갈 때마다 답변 데이터를 초기화하는 함수
+  //질문이 넘어갈 때마다 답변 데이터를 초기화하는 함수
   const resetAnswers = () => {
     setSelectedOptions([]);
   };
@@ -45,7 +46,7 @@ function SurveyPresenterPage(props) {
     }
   };
 
-  // 질문이 변경될 때 답변 데이터를 초기화합니다.
+  //질문이 변경될 때 답변 데이터를 초기화합니다.
   useEffect(() => {
     resetAnswers();
   }, [props.page_number]);
@@ -56,13 +57,20 @@ function SurveyPresenterPage(props) {
       <S.CloseBox> <S.Close src="/images/close.png" /> </S.CloseBox>
       <S.GroupBox>
       {props.page_number === "0" && (
-          <PurposeComponent setPreference={setPreference} />
+          <PurposeComponent setPurpose={setPurpose} />
       )}
       {props.page_number === "1" && (
           <PreferenceComponent setPreference={setPreference} />
       )}
       </S.GroupBox>
-      <S.Button>선택 완료</S.Button>
+      <S.Button onClick={props.onClickNext}>선택 완료</S.Button>
+      {/* <S.Button onClick={
+              // selectedOptions.length > 0 ||
+              (props.page_number === "0" && purpose !== "") ||
+              (props.page_number === "1" && preference !== "")
+                ? props.onClickNext : null}>
+        선택 완료
+      </S.Button> */}
     </S.Wrapper>
   );
 }

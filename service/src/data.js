@@ -1,6 +1,6 @@
 export let data = {
     survey: {
-        purpose: [],
+        purpose: "",
         preference: [],
     },
   };

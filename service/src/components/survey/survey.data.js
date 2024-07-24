@@ -1,8 +1,8 @@
 export const survey = [
     {
         key: "purpose",
-        userName: "",
-        surveyMain: "님의 목적은 무엇인가요?",
+        userName: "user",
+        surveyMain: "님의 목적은 무엇인가요?⛹‍♀",
         options: [],
         multioption: false,
     },
@@ -14,4 +14,3 @@ export const survey = [
         multioption: true,
     },
   ];
-  

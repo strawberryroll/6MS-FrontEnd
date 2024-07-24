@@ -1,4 +1,5 @@
 import * as S from "./purpose.style";
+import { survey } from "../survey.data";
 
 export default function PurposePresenter(props) {
   return (
@@ -27,8 +28,7 @@ export default function PurposePresenter(props) {
         </S.RowGroup>
       </S.OptionGroup>
 
-      <S.Text>마피님의 목적은 무엇인가요?⛹️‍♀️
-      </S.Text>
+      <S.Text>{survey[0].userName}{survey[0].surveyMain}</S.Text>
     
     </S.Wrapper>
   );
