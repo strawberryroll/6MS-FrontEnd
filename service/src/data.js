@@ -7,10 +7,10 @@ export let data = {
     
     recipe: { 
         review: {
-            user: "마피",
-            grade: 4,
+            user: "",
+            grade: 0,
             date: "",
-            text: "레시피 감사합니다~",
+            text: "",
             image: "",
         }
 

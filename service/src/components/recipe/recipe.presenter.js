@@ -1,8 +1,10 @@
+// recipe.presenter.js
 import * as S from "./recipe.styles";
 import { useState } from "react";
 import { recipe } from "./recipe.data";
+import { data } from "../../data";
 
-function RecipePresenterPage(props) {
+export default function RecipePresenterPage(props) {
   const { menu, user, writerName, summary, ingredients, cookingOrder, review, writer } = recipe[props.page_number];
   
   const [userReview, setUserReview] = useState('');
@@ -18,16 +20,22 @@ function RecipePresenterPage(props) {
   };
 
   const handleReviewSubmit = () => {
-    if (userReview) {
+    if (userReview && userRating) {
       const newReview = {
         user: user,
         grade: userRating,
         text: userReview,
+        date: new Date().toISOString().split("T")[0], // 현재 날짜 저장
         image: "", // 이미지 추가 기능을 구현하려면 여기에서 추가
       };
       setReviews([newReview, ...reviews]);
       setUserReview('');
       setUserRating(0);
+
+      // Save to data object
+      data.recipe.review = newReview;
+      console.log(newReview);
+      console.log(data);
     }
   };
 
@@ -174,4 +182,3 @@ function RecipePresenterPage(props) {
   );
 }
 
-export default RecipePresenterPage;
