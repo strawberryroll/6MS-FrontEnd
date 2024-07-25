@@ -3,7 +3,7 @@ import { survey } from "./survey.data";
 import { useParams } from "react-router-dom";
 import SurveyPresenterPage from "./survey.presenter";
 
-function SurveyContainerPage() {
+export default function SurveyContainerPage() {
     const params = useParams();
     const page_number = params.id;
     const navigate = useNavigate();
@@ -30,4 +30,3 @@ function SurveyContainerPage() {
     );
 }
 
-export default SurveyContainerPage;

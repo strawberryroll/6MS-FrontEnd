@@ -3,7 +3,7 @@ import PreferenceComponent from "./preferenceUnit/preference.container";
 import PurposeComponent from "./purposeUnit/purpose.container";
 import { useState} from "react";
 
-function SurveyPresenterPage(props) {
+export default function SurveyPresenterPage(props) {
   const [preference, setPreference] = useState([]);
   const [purpose, setPurpose] = useState("");
   
@@ -28,5 +28,5 @@ function SurveyPresenterPage(props) {
   );
 }
 
-export default SurveyPresenterPage;
+
 

@@ -3,7 +3,33 @@ import { useState } from "react";
 import { recipe } from "./recipe.data";
 
 function RecipePresenterPage(props) {
-  const { menu, user, writerName, summary, ingredients, cookingOrder, review, writer } = recipe;
+  const { menu, user, writerName, summary, ingredients, cookingOrder, review, writer } = recipe[props.page_number];
+  
+  const [userReview, setUserReview] = useState('');
+  const [userRating, setUserRating] = useState(0);
+  const [reviews, setReviews] = useState(review.response);
+
+  const handleReviewChange = (event) => {
+    setUserReview(event.target.value);
+  };
+
+  const handleRatingChange = (rating) => {
+    setUserRating(rating);
+  };
+
+  const handleReviewSubmit = () => {
+    if (userReview) {
+      const newReview = {
+        user: user,
+        grade: userRating,
+        text: userReview,
+        image: "", // 이미지 추가 기능을 구현하려면 여기에서 추가
+      };
+      setReviews([newReview, ...reviews]);
+      setUserReview('');
+      setUserRating(0);
+    }
+  };
 
   return (
     <S.Wrapper>
@@ -87,7 +113,6 @@ function RecipePresenterPage(props) {
         ))}
       </S.ReportItems>
 
-      
       <S.UserSection>
         <S.Title style={{marginLeft: 0}}>후기</S.Title>
         <S.Rating>
@@ -101,7 +126,7 @@ function RecipePresenterPage(props) {
       </S.UserSection>
       
       <S.Reviews>
-        {review.response.map((review, index) => (
+        {reviews.map((review, index) => (
           <S.Review key={index}>
             <S.UserSection>
               <S.UserProfile>
@@ -116,8 +141,8 @@ function RecipePresenterPage(props) {
               </S.Rating>
             </S.UserSection>
             <S.ReviewTextBox>
-                <S.ReviewText>{review.text}</S.ReviewText>
-                {review.image && <S.ReviewImage src={review.image} />}
+              <S.ReviewText>{review.text}</S.ReviewText>
+              {review.image && <S.ReviewImage src={review.image} />}
             </S.ReviewTextBox>
           </S.Review>
         ))}
@@ -125,24 +150,26 @@ function RecipePresenterPage(props) {
 
       <S.MyReview>
         <S.UserSection>
-            <S.UserProfile>
-                <S.Icon src="/images/user.png" />
-                <S.UserName>{user}</S.UserName>
-            </S.UserProfile>
-            <S.Rating>
-                <S.StarRating>별점</S.StarRating>
-                {[...Array(5)].map((_, i) => (
-                  <S.Star key={i} filled={i < review.grade} />
-                ))}
-            </S.Rating>
+          <S.UserProfile>
+            <S.Icon src="/images/user.png" />
+            <S.UserName>{user}</S.UserName>
+          </S.UserProfile>
+          <S.Rating>
+            <S.StarRating>별점</S.StarRating>
+            <S.Stars>
+              {[...Array(5)].map((_, i) => (
+                <S.Star
+                  key={i}
+                  filled={i < userRating}
+                  onClick={() => handleRatingChange(i + 1)}
+                />
+              ))}
+            </S.Stars>
+          </S.Rating>
         </S.UserSection>
-        <S.InputReview></S.InputReview>
-        <S.WriteButton>작성</S.WriteButton>
-
+        <S.InputReview value={userReview} onChange={handleReviewChange} />
+        <S.WriteButton onClick={handleReviewSubmit}>작성</S.WriteButton>
       </S.MyReview>
-
-      
-
     </S.Wrapper>
   );
 }
