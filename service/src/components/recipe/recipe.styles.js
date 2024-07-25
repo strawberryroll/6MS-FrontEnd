@@ -7,6 +7,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: "Noto Sans KR";
 `;
 
 export const CloseBox = styled.div`
@@ -50,7 +51,6 @@ export const UserBox = styled.div`
   span {
     font-size: 10px;
     font-weight: 600;
-    letter-spacing: -1px;
   }
 `;
 
@@ -87,7 +87,7 @@ export const TableHead = styled.thead`
 
 export const TableBody = styled.tbody`
   font-size: 9px;
-  text-align: left;
+//   text-align: left;
 `;
 
 export const TableRow = styled.tr`
@@ -96,7 +96,7 @@ export const TableRow = styled.tr`
 
 export const TableHeader = styled.th`
   padding: 10px;
-  text-align: left;
+//   text-align: left;
   font-weight: 700;
   border-bottom: 1px solid grey;
 `;
@@ -147,16 +147,15 @@ export const OrderImage = styled.img`
   border-radius: 10px;
 `;
 
-export const UserSection = styled.div`
-  width: 50%;
+export const UserProfile = styled.div`
   display: flex;
   align-items: center;
 `;
 
-export const UserProfile = styled.div`
+export const UserSection = styled.div`
   width: 100%;
   display: flex;
-  align-items: center;
+  justify-content: space-between;
 `;
 
 export const UserName = styled.span`
@@ -167,22 +166,22 @@ export const UserName = styled.span`
 export const Rating = styled.div`
   display: flex;
   align-items: center;
-  margin-left: 10px;
+  margin-left: 40px;
 `;
 
 export const StarRating = styled.span`
   font-size: 10px;
   font-weight: 600;
+  margin-right: 10px;
 `;
 
 export const Stars = styled.div`
   display: flex;
-  margin-left: 10px;
 `;
 
 export const Star = styled.div`
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   background: ${(props) => (props.filled ? "gold" : "lightgray")};
   clip-path: polygon(
     50% 0%,
@@ -200,8 +199,10 @@ export const Star = styled.div`
 `;
 
 export const UserChannel = styled.div`
+  width: 95%;
   margin-top: 10px;
-  font-size: 14px;
+  font-size: 12px;
+  text-align: left;
 `;
 
 export const ChannelLink = styled.a`
@@ -210,26 +211,27 @@ export const ChannelLink = styled.a`
 
 export const RecipeReportTitle = styled.h3`
   width: 100%;
-  margin-top: 20px;
+  margin: 20px 0px 10px 20px;
   font-size: 18px;
   font-weight: 600;
-  letter-spacing: -1px;
+  letter-spacing: -0.5px;
+  text-align: left;
 `;
 
 export const ReportItems = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin: 10px 0px 30px;
+  margin: 10px 0px 30px 10px;
 `;
 
 export const ReportItem = styled.div`
   width: 30%;
+  height: 133px;
   background: rgba(255, 100, 13, 0.2);
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100px;
   border-radius: 10px;
 `;
 
@@ -244,37 +246,41 @@ export const Reviews = styled.div`
 
 export const Review = styled.div`
   margin-top: 20px;
-  padding: 20px;
-  background: ${(props) => (props.highlight ? "#fff5f5" : "#fff")};
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+//   padding: 20px;
+//   background: ${(props) => (props.highlight ? "#fff5f5" : "#fff")};
+//   border-radius: 10px;
+//   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 `;
 
-export const ReviewHeader = styled.div`
+export const ReviewTextBox = styled.div`
+//   width: 100%;
   display: flex;
   justify-content: space-between;
 `;
 
-export const ReviewUserProfile = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-export const ReviewRating = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
 export const ReviewText = styled.div`
-  margin-top: 10px;
   font-size: 14px;
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
 `;
 
 export const ReviewImage = styled.img`
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   margin-top: 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+`;
+
+export const MyReview = styled.div`
+  width: 95%;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  padding: 10px;
   border-radius: 10px;
+  border: 1.5px solid #FF640D;
 `;
 
 export const WriteButton = styled.button`
@@ -286,4 +292,16 @@ export const WriteButton = styled.button`
   color: black;
   font-size: 12px;
   cursor: pointer;
+`;
+
+export const InputReview = styled.textarea`
+  width: 90%;
+  height: 80px;
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 14px;
+  resize: vertical;
+  outline: none;
 `;
