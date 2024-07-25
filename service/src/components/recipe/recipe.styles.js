@@ -258,6 +258,11 @@ export const ReviewTextBox = styled.div`
   justify-content: space-between;
 `;
 
+export const ReviewSmallBox = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 export const ReviewText = styled.div`
   font-size: 14px;
   margin-left: 10px;
@@ -265,10 +270,19 @@ export const ReviewText = styled.div`
   align-items: center;
 `;
 
+export const ReviewDate = styled.div`
+  font-size: 8px;
+  margin: 5px 5px 5px 10px;
+  display: flex;
+  align-items: center;
+  color: #AAAAAA;
+`;
+
 export const ReviewImage = styled.img`
   width: 50px;
   height: 50px;
-  margin-top: 10px;
+  margin-top: 0px;
+  margin-bottom: 10px;
   border-radius: 5px;
   display: flex;
   align-items: center;

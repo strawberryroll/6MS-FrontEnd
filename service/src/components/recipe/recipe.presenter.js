@@ -39,6 +39,11 @@ export default function RecipePresenterPage(props) {
     }
   };
 
+  const handlePurchase = (ingredient) => {
+    let url = `https://www.kurly.com/search?sword=${ingredient}`;
+    window.open(url, '_blank');
+};
+
   return (
     <S.Wrapper>
       <S.CloseBox>
@@ -76,7 +81,9 @@ export default function RecipePresenterPage(props) {
               <S.TableCell>{ingredient}</S.TableCell>
               <S.TableCell>{details[0]}</S.TableCell>
               <S.TableCell>{details[1]}</S.TableCell>
-              <S.TableCell><S.Button>구매</S.Button></S.TableCell>
+              <S.TableCell>
+                <S.Button onClick={() => handlePurchase(ingredient)}>구매</S.Button>
+              </S.TableCell>
             </S.TableRow>
           ))}
         </S.TableBody>
@@ -149,7 +156,10 @@ export default function RecipePresenterPage(props) {
               </S.Rating>
             </S.UserSection>
             <S.ReviewTextBox>
-              <S.ReviewText>{review.text}</S.ReviewText>
+              <S.ReviewSmallBox>
+                <S.ReviewText>{review.text}</S.ReviewText>
+                <S.ReviewDate>{review.date}</S.ReviewDate>
+              </S.ReviewSmallBox>
               {review.image && <S.ReviewImage src={review.image} />}
             </S.ReviewTextBox>
           </S.Review>
@@ -181,4 +191,3 @@ export default function RecipePresenterPage(props) {
     </S.Wrapper>
   );
 }
-
