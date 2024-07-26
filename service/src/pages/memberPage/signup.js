@@ -16,7 +16,7 @@ const SignupForm = () => {
           <span>회원가입</span>
         </div>
   
-        <section>
+        <section className='container'>
           <div className="insert">
             <span className="title">아이디</span>
             <div className="content">
@@ -40,7 +40,7 @@ const SignupForm = () => {
         </section>
   
         <footer>
-          <input type="submit" id="button" value="회원가입" />
+          <input type="submit" id="signup_button" value="회원가입" />
         </footer>
       </>
     );

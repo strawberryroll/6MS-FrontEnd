@@ -1,18 +1,3 @@
-@font-face {
-    font-family: 'Noto Sans KR', sans-serif ;
-    src: url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
-}
-
-
-/* html {
-    font-family: 'Noto Sans KR', sans-serif;
-    min-height: 100%;
-    max-width: 375px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 24px;
- } */
-
  header, div {
     text-align: left;
  }
@@ -23,7 +8,7 @@
 
 
 
- section {
+.container {
     margin-bottom: 65px;
  }
 
@@ -48,20 +33,28 @@
 }
 
 
-body .content {
+.content {
     color: #828284;
 }
 
 
-body input, #button {
+.content input {
     width: 100%;
     border-radius: 4px;
     border: 1px solid #DFE2E6;
     padding: 16px;
     box-sizing: border-box;
+    font-size: 16px;
 }
 
-#button {
+#signup_button {
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid #DFE2E6;
+    padding: 16px;
+    box-sizing: border-box;
+    font-size: 16px;
+
     background-color: #FF640D;
     border-radius: 8px;
     border: none;
@@ -71,4 +64,5 @@ body input, #button {
     font-weight: 400;
     margin: auto;
     padding: 0;
+    
 }
