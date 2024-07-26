@@ -186,6 +186,7 @@ export default function RecipePresenterPage(props) {
           </S.Rating>
         </S.UserSection>
         <S.InputReview value={userReview} onChange={handleReviewChange} />
+        <S.Icon src="/images/attach.png" />
         <S.WriteButton onClick={handleReviewSubmit}>작성</S.WriteButton>
       </S.MyReview>
     </S.Wrapper>
