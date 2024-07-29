@@ -5,7 +5,7 @@ import './search.css';
 
 const SearchForm = () => {
   return (
-    <div>
+    <div className="search_container">
       <div>
         <p>재료</p>
         <input type="text" id="searchform" placeholder="재료를 검색하세요" />
