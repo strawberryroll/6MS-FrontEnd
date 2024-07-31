@@ -1,5 +1,5 @@
 // recipe.presenter.js
-import * as S from "./recipe.styles";
+import * as S from "./recipe.style";
 import { useState } from "react";
 import { response_data } from "../../response_data";
 import { data } from "../../data";

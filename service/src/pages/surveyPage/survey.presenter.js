@@ -1,6 +1,6 @@
-import * as S from "./survey.styles";
-import PreferenceComponent from "./preferenceUnit/preference.container";
-import PurposeComponent from "./purposeUnit/purpose.container";
+import * as S from "./survey.style";
+import PreferenceComponent from "../../components/preferenceUnit/preference.container";
+import PurposeComponent from "../../components/purposeUnit/purpose.container";
 import { useState} from "react";
 
 export default function SurveyPresenterPage(props) {

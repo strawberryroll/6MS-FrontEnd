@@ -1,9 +1,14 @@
-import RecipeContainerPage from "../../components/recipe/recipe.container";
+import { useParams } from "react-router-dom";
+import RecipePresenterPage from "./recipe.presenter";
 
-function RecipePage() {
+export default function RecipePage(props) {
+    const params = useParams();
+    const page_number = params.id;
+
     return (
-        <RecipeContainerPage />
+        <RecipePresenterPage
+            page_number={page_number}
+        />
     );
 }
 
-export default RecipePage;

@@ -1,5 +1,5 @@
 import PreferencePresenter from "./preference.presenter";
-import { data } from "../../../data";
+import { data } from "../../data";
 
 export default function PreferenceComponent(props) {
     const onClickOption = (event) => {
