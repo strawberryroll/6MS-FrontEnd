@@ -1,11 +1,11 @@
 // recipe.presenter.js
 import * as S from "./recipe.styles";
 import { useState } from "react";
-import { recipe } from "./recipe.data";
+import { response_data } from "../../response_data";
 import { data } from "../../data";
 
 export default function RecipePresenterPage(props) {
-  const { menu, image, user, writerName, summary, ingredients, cookingOrder, review, writer } = recipe[props.page_number];
+  const { menu, image, user, writerName, summary, ingredients, cookingOrder, review, writer } = response_data.recipe[props.page_number];
   
   const [userReview, setUserReview] = useState('');
   const [userRating, setUserRating] = useState(0);
