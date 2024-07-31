@@ -51,7 +51,7 @@ export const Name = styled.div`
 
 export const Text = styled.div`
   width: 230px;
-  height: 92px;
+  height: 50px;
   font-size: 32px;
   font-weight: 600;
   text-align: center;

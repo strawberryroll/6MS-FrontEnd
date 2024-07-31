@@ -28,7 +28,8 @@ export default function PurposePresenter(props) {
         </S.RowGroup>
       </S.OptionGroup>
 
-      <S.Text>{survey[0].userName}{survey[0].surveyMain}</S.Text>
+      <S.Text>{survey[0].userName}님의 목적은</S.Text>
+      <S.Text>무엇인가요?⛹‍♀</S.Text>
     
     </S.Wrapper>
   );

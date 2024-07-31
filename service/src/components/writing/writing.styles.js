@@ -35,6 +35,26 @@ export const Title = styled.div`
   letter-spacing: -1px;
 `;
 
+export const TitleInput = styled.input`
+  width: 100%;
+  height: 33px;
+  font-size: 28px;
+  padding-left: 10px;
+  margin: 10px 0;
+  border: none;
+  box-sizing: border-box;
+  font-family: "Noto Sans KR";
+  font-weight: 600;
+  color: '#757575';
+  letter-spacing: -1px;
+
+   &:focus {
+    border: 1px solid black;
+    border-radius: 10px;
+    outline: none;
+  }
+`;
+
 export const ImageUpload = styled.div`
   width: 100%;
   height: 168px;
@@ -60,7 +80,7 @@ export const UserBox = styled.div`
 
 export const TextArea = styled.textarea`
   width: 90%;
-  height: 12px;
+  height: 15px;
   margin: 0px 0;
   padding: 0px;
   font-size: 10px;
@@ -69,6 +89,12 @@ export const TextArea = styled.textarea`
   font-weight: 500;
   border: none;
   font-family: "Noto Sans KR";
+
+  &:focus {
+    border: 1px solid black;
+    border-radius: 10px;
+    outline: none;
+  }
 `;
 
 export const Info = styled.div`
@@ -110,6 +136,7 @@ export const DifficultyLevel = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 50%;
+  border: ${(props) => (props.isSelected ? '1px solid #FF640D' : 'none')};
 `;
 
 export const InputWrapper = styled.div`
@@ -126,6 +153,12 @@ export const Input = styled.input`
   border: 1px solid #FF640D;
   border-radius: 10px;
   font-family: "Noto Sans KR";
+
+  &:focus {
+    border: 1px solid black;
+    border-radius: 10px;
+    outline: none;
+  }
 `;
 
 export const Price = styled.div`
@@ -149,6 +182,7 @@ export const PriceOption = styled.div`
   font-size: 9px;
   border-radius: 20px;
   padding: 1px;
+  border: ${(props) => (props.isSelected ? '1px solid #FF640D' : 'none')};
 
   display: flex;
   justify-content: center;
@@ -163,13 +197,19 @@ export const Ingredients = styled.div`
 `;
 
 export const IngredientInput = styled.input`
-  width: 30%;
+  width: 48%;
   padding: 8px;
   margin: 5px 0px;
   box-sizing: border-box;
   border: 1px solid #FF640D;
   border-radius: 10px;
   font-size: 8px;
+
+  &:focus {
+    border: 1px solid black;
+    border-radius: 10px;
+    outline: none;
+  }
 `;
 
 export const AddButton = styled.button`

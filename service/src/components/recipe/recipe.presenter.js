@@ -5,7 +5,7 @@ import { recipe } from "./recipe.data";
 import { data } from "../../data";
 
 export default function RecipePresenterPage(props) {
-  const { menu, user, writerName, summary, ingredients, cookingOrder, review, writer } = recipe[props.page_number];
+  const { menu, image, user, writerName, summary, ingredients, cookingOrder, review, writer } = recipe[props.page_number];
   
   const [userReview, setUserReview] = useState('');
   const [userRating, setUserRating] = useState(0);
@@ -42,7 +42,9 @@ export default function RecipePresenterPage(props) {
   const handlePurchase = (ingredient) => {
     let url = `https://www.kurly.com/search?sword=${ingredient}`;
     window.open(url, '_blank');
-};
+  };
+
+  const summaryWidths = [52, 36, 50, 49, 69];
 
   return (
     <S.Wrapper>
@@ -52,14 +54,15 @@ export default function RecipePresenterPage(props) {
       </S.CloseBox>
       
       <S.Title>{menu}</S.Title>
-      <S.MainImg src="/images/foodimg.png" />
+      <S.MainImg src={image} />
       <S.UserBox>
         <S.Icon src="/images/user.png" />
         <span>{writerName}</span>
       </S.UserBox>
+      
       <S.SummaryBox>
         {summary.map((item, index) => (
-          <S.Summary key={index} style={{ width: `${item.length * 10}px` }}>
+          <S.Summary key={index} style={{ width: `${summaryWidths[index]}px` }}>
             {item}
           </S.Summary>
         ))}
@@ -70,8 +73,8 @@ export default function RecipePresenterPage(props) {
         <S.TableHead>
           <S.TableRow>
             <S.TableHeader>재료</S.TableHeader>
-            <S.TableHeader>칼로리</S.TableHeader>
-            <S.TableHeader>양</S.TableHeader>
+            <S.TableHeader></S.TableHeader>
+            <S.TableHeader></S.TableHeader>
             <S.TableHeader></S.TableHeader>
           </S.TableRow>
         </S.TableHead>
@@ -79,8 +82,8 @@ export default function RecipePresenterPage(props) {
           {Object.entries(ingredients).map(([ingredient, details], index) => (
             <S.TableRow key={index}>
               <S.TableCell>{ingredient}</S.TableCell>
+              <S.TableCell></S.TableCell>
               <S.TableCell>{details[0]}</S.TableCell>
-              <S.TableCell>{details[1]}</S.TableCell>
               <S.TableCell>
                 <S.Button onClick={() => handlePurchase(ingredient)}>구매</S.Button>
               </S.TableCell>
@@ -186,8 +189,10 @@ export default function RecipePresenterPage(props) {
           </S.Rating>
         </S.UserSection>
         <S.InputReview value={userReview} onChange={handleReviewChange} />
-        <S.Icon src="/images/attach.png" />
-        <S.WriteButton onClick={handleReviewSubmit}>작성</S.WriteButton>
+        <S.IconButtonContainer>
+          <S.Icon style={{marginTop: 10}} src="/images/attach.png" />
+          <S.WriteButton onClick={handleReviewSubmit}>작성</S.WriteButton>
+        </S.IconButtonContainer>
       </S.MyReview>
     </S.Wrapper>
   );

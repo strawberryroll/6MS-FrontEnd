@@ -319,3 +319,11 @@ export const InputReview = styled.textarea`
   resize: vertical;
   outline: none;
 `;
+
+export const IconButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 90%;
+  margin-left: 25px;
+`;
