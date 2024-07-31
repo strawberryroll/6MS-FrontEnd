@@ -63,6 +63,7 @@ export const ImageUpload = styled.div`
   justify-content: center;
   align-items: center;
   margin: 10px 0;
+  flex-direction: column;
 `;
 
 export const UserBox = styled.div`
@@ -240,4 +241,19 @@ export const SubmitButton = styled.button`
   border-radius: 10px;
   font-size: 16px;
   font-family: "Noto Sans KR";
+`;
+
+export const LogButton = styled.button`
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #0056b3;
+  }
 `;
