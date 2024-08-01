@@ -5,7 +5,10 @@ import { response_data } from "../../response_data";
 import { data } from "../../data";
 
 export default function RecipePresenterPage(props) {
-  const { menu, image, user, writerName, summary, ingredients, cookingOrder, review, writer } = response_data.recipe[props.page_number];
+
+  const { title, recipeImages, intro, level, servings, cost, ingredient, content, requiredTime, kcal, average, nickname, review, channel  } = response_data[props.page_number];
+  
+  const summaryWidths = [52, 36, 50, 49, 69];
   
   const [userReview, setUserReview] = useState('');
   const [userRating, setUserRating] = useState(0);
@@ -22,7 +25,7 @@ export default function RecipePresenterPage(props) {
   const handleReviewSubmit = () => {
     if (userReview && userRating) {
       const newReview = {
-        user: user,
+        user: nickname,
         grade: userRating,
         text: userReview,
         date: new Date().toISOString().split("T")[0], // 현재 날짜 저장
@@ -44,7 +47,6 @@ export default function RecipePresenterPage(props) {
     window.open(url, '_blank');
   };
 
-  const summaryWidths = [52, 36, 50, 49, 69];
 
   return (
     <S.Wrapper>
@@ -53,19 +55,19 @@ export default function RecipePresenterPage(props) {
         <S.Icon src="/images/search.png" />
       </S.CloseBox>
       
-      <S.Title>{menu}</S.Title>
-      <S.MainImg src={image} />
+      <S.Title>{title}</S.Title>
+      <S.MainImg src={recipeImages} />
       <S.UserBox>
         <S.Icon src="/images/user.png" />
-        <span>{writerName}</span>
+        <span>{intro}</span>
       </S.UserBox>
       
       <S.SummaryBox>
-        {summary.map((item, index) => (
-          <S.Summary key={index} style={{ width: `${summaryWidths[index]}px` }}>
-            {item}
-          </S.Summary>
-        ))}
+          <S.Summary style={{ width: `${summaryWidths[0]}px` }}> {level} </S.Summary>
+          <S.Summary style={{ width: `${summaryWidths[1]}px` }}> {servings} </S.Summary>
+          <S.Summary style={{ width: `${summaryWidths[2]}px` }}> {kcal} </S.Summary>
+          <S.Summary style={{ width: `${summaryWidths[3]}px` }}> {requiredTime} </S.Summary>
+          <S.Summary style={{ width: `${summaryWidths[4]}px` }}> {cost} </S.Summary>
       </S.SummaryBox>
 
       <S.Title>재료</S.Title>
@@ -79,11 +81,11 @@ export default function RecipePresenterPage(props) {
           </S.TableRow>
         </S.TableHead>
         <S.TableBody>
-          {Object.entries(ingredients).map(([ingredient, details], index) => (
+          {Object.entries(ingredient).map(([ingredient, details], index) => (
             <S.TableRow key={index}>
               <S.TableCell>{ingredient}</S.TableCell>
               <S.TableCell></S.TableCell>
-              <S.TableCell>{details[0]}</S.TableCell>
+              <S.TableCell>{details}</S.TableCell>
               <S.TableCell>
                 <S.Button onClick={() => handlePurchase(ingredient)}>구매</S.Button>
               </S.TableCell>
@@ -94,11 +96,11 @@ export default function RecipePresenterPage(props) {
 
       <S.Title>조리순서</S.Title>
       <S.OrderList>
-        {Object.entries(cookingOrder).map(([step, instruction], index) => (
+        {content.map((instruction, index) => (
           <S.OrderItem key={index}>
-            <S.Step>{step}</S.Step>
-            <S.Instruction>{instruction[0]}</S.Instruction>
-            <S.OrderImage src={`/images/${instruction[1]}`} />
+            <S.Step>{index+1}</S.Step>
+            <S.Instruction>{instruction}</S.Instruction>
+            {/* <S.OrderImage src={`/images/${instruction[1]}`} /> */}
           </S.OrderItem>
         ))}
       </S.OrderList>
@@ -107,22 +109,22 @@ export default function RecipePresenterPage(props) {
       <S.UserSection>
         <S.UserProfile>
           <S.Icon src="/images/user.png" />
-          <S.UserName>{writerName}</S.UserName>
+          <S.UserName>{intro}</S.UserName>
         </S.UserProfile>
         <S.Rating>
           <S.StarRating>평점</S.StarRating>
           <S.Stars>
             {[...Array(5)].map((_, i) => (
-              <S.Star key={i} filled={i < writer.grade} />
+              <S.Star key={i} filled={i < average} />
             ))}
           </S.Stars>
         </S.Rating>
       </S.UserSection>
         
       <S.UserChannel>
-        주 채널 : <S.ChannelLink href={writer.channel}>{writer.channel}</S.ChannelLink>
+        주 채널 : <S.ChannelLink href={channel}>{channel}</S.ChannelLink>
       </S.UserChannel>
-      <S.RecipeReportTitle>{writerName}님이 작성한 요리 보고서 항목</S.RecipeReportTitle>
+      <S.RecipeReportTitle>{intro}님이 작성한 요리 보고서 항목</S.RecipeReportTitle>
       <S.ReportItems>
         {[...Array(3)].map((_, i) => (
           <S.ReportItem key={i}>
@@ -173,7 +175,7 @@ export default function RecipePresenterPage(props) {
         <S.UserSection>
           <S.UserProfile>
             <S.Icon src="/images/user.png" />
-            <S.UserName>{user}</S.UserName>
+            <S.UserName>{nickname}</S.UserName>
           </S.UserProfile>
           <S.Rating>
             <S.StarRating>별점</S.StarRating>

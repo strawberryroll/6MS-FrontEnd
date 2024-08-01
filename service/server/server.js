@@ -1,4 +1,12 @@
-export let response_data = [
+const express = require('express');
+const cors = require('cors');
+const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+app.use(cors());
+
+let response_data = [
     // 내가 서버로부터 받는 데이터
     {   
         "recipeId": 0,
@@ -50,3 +58,21 @@ export let response_data = [
     
 
 ];
+
+ 
+
+app.get('/', function (req, res) {
+  res.send('Hello World');
+})
+
+app.get('/api/recipe', (req, res) => {
+    res.json(response_data.recipe) ;
+})
+
+app.post('/api/survey', (req, res) => {
+    const {survey} = req.body;
+    res.send(survey);
+})
+app.listen(4000, () => {
+    console.log("server start!!");
+});
