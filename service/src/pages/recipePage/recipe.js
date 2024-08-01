@@ -9,7 +9,6 @@ export default function RecipePage(props) {
     const page_number = parseInt(id, 10); // Convert the id to an integer if necessary
     const [data, setData] = useState(null);
 
-    // Uncomment and use this if you plan to fetch data asynchronously in the future
     // useEffect(() => {
     //     fetch(`/board/${page_number}`)
     //     .then((response) => response.json())
