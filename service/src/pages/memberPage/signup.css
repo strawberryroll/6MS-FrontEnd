@@ -1,0 +1,68 @@
+ header, div {
+    text-align: left;
+ }
+
+#top {
+    margin: 62px 0 18px 0;
+ }
+
+
+
+.signup_container {
+    margin-bottom: 65px;
+ }
+
+.signup {
+    color: #111111;
+    font-size: 32px;
+    margin-bottom: 32px;
+ }
+
+
+
+.insert {
+    margin-bottom: 16px;
+    width: 100%;
+}
+
+.title {
+    display: inline-block;
+    color: #111111 ;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+
+.content {
+    color: #828284;
+}
+
+.signup_container input {
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid #DFE2E6;
+    padding: 16px;
+    box-sizing: border-box;
+    outline-color: #FF640D;
+}
+
+#signup_button {
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid #DFE2E6;
+    padding: 16px;
+    box-sizing: border-box;
+    font-size: 16px;
+
+    background-color: #FF640D;
+    border-radius: 8px;
+    border: none;
+    height: 58px;
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+    margin: auto;
+    padding: 0;
+    
+}
+

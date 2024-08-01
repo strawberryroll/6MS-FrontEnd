@@ -1,0 +1,160 @@
+@font-face {
+    font-family: 'Noto Sans KR', sans-serif ;
+    src: url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+}
+
+
+html {
+    font-family: 'Noto Sans KR', sans-serif;
+    max-width: 375px;
+    max-height: 812px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding-bottom: 51px;
+    box-sizing: border-box;
+}
+
+/* 검색결과 */
+
+#result_header {
+    font-size: 32px;
+    font-weight: 500;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+
+/* 레시피검색하기 */
+
+#search {
+    display: flex;
+    gap: 15px;
+}
+
+#search img {
+    width: 24px;
+}
+
+#search input {
+    width: 100%;
+    box-sizing: border-box;
+    color: #757575;
+    font-size: 16px;
+    border: none;
+    box-sizing: border-box;
+}
+
+
+
+/* 콘텐츠 */
+
+.container {
+    /* width: calc(100% - 48px); */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px 25px;
+    justify-content: flex-start;
+    /* margin-left: -12.5px; */
+}
+
+
+.box {
+    width: 150px;
+    height: 220px;
+    border: 0.7px solid #ff640d;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin-top: 18px;
+    box-sizing: border-box;
+    justify-content: space-between;
+    float: left;
+
+}
+
+
+.profile {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 10px;
+    gap: 5px;
+    padding: 2.5px 10px;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.box .profile img {
+    width: 21px;
+    height: 21px;
+}
+
+
+.image {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.search_result_title {
+    font-size: 8px;
+    padding: 15px 10px;
+    box-sizing: border-box;
+}
+
+
+/* 하단 네비게이션 바 */
+
+nav {
+    background-color: white;
+    width: 100vw; /* 뷰포트의 전체 너비로 설정 */
+    height: 51px;
+    display: flex;
+    border-top: 0.5px solid #FFE1D1;
+    justify-content: space-between;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    box-sizing: border-box;
+    padding: 0 100px; 
+}
+
+nav div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+nav img {
+    width: 20px;
+    margin-bottom: 2px; /* 아이콘과 텍스트 간의 간격 조정 */
+}
+
+nav p {
+    font-size: 10px;
+    margin: 0; /* 텍스트의 여백 제거 */
+}
+#focused {
+    color: #ff640d;
+}
+
+#search_result_write {
+    font-size: 7.5px;
+}
