@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/homePage/home';
@@ -7,6 +6,8 @@ import MyPage from './pages/myPage/my';
 import QuestionPage from './pages/questionPage/question';
 import RecipePage from './pages/recipePage/recipe';
 import StartPage from './pages/startPage/start';
+import LoginPage from './pages/loginPage/login';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path='/home' element={<HomePage />}></Route>
         <Route path='/recipe' element={<RecipePage />}></Route>
         <Route path='/my' element={<MyPage />}></Route>
+        <Route path='/login' element={<LoginPage />}></Route>
       </Routes>
     </div>
    
@@ -25,3 +27,5 @@ function App() {
 }
 
 export default App;
+
+

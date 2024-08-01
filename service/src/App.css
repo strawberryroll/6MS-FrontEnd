@@ -1,38 +1,331 @@
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Noto+Sans+KR:wght@100..900&family=Noto+Serif+KR&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .App {
+  width: 375px;
+}
+
+.container {
+  width: 375px;
+  height: 812px;
+  background-color: #ffffff;
+  font-family: 'Noto Sans KR', sans-serif;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.container2 {
+  display: inline-block;
+  width: 375px;
+  padding: 0 25px;
+  height: 812px;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.yoribogo-img {
+  width: 200px;
+  height: 233.83px;
+
+  position: absolute;
+  top: 204px;
+  left: 87.5px;
+}
+
+.start-box {
+  width: 327px;
+  height: 95px;
+  align-items: center;
+  
+  position: absolute;
+  top: 597.83px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.signup-btn {
+  color: #707070;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19.6px;
+
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.x-box {
+  width: 100%;
+  height: 56px;
+  display: inline-block;
+  position: absolute;
+  top: 62px;
+  left: 0px;
+}
+
+.x-img {
+  width: 24px;
+  height: 24px;
+
+  position: absolute;
+  left: 24px;
+  top: 16px;
+}
+
+.login-box {
+  width: 327px;
+  height: 460px;
+  text-align: left;
+
+  position: absolute;
+  top: 136px;
+  left: 24px;
+}
+
+.id-box {
+  width: 327px;
+  height: 88px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  position: absolute;
+  top: 78px;
+}
+
+.password-box {
+  width: 327px;
+  height: 88px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  position: absolute;
+  top: 182px;
+}
+
+.ft-toosmall {
+  font-size: 10px;
+  line-height: 16px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.ft-small {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22.4px;
+  margin: 0;
+  position: absolute;
+  top: 0px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.ft-big {
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  line-height: 46.4px;
+  margin: 0;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.orange-btn {
+  display: inline-block;
+  width: 327px;
+  height: 58px;
+  background-color: #FF640D;
+  color: white;
+  padding: 10px;
+  gap: 10px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22.4px;
+  text-align: center;
+  cursor: pointer; 
+  box-sizing: border-box;
+}
+
+.btn-position-login {
+  position: absolute;
+  top: 335px;
+}
+
+.text-box {
+  display: inline-block;
+  background-color: white;
+  width: 327px;
+  height: 58px;
+  border-radius: 4px;
+  border: 1px solid #CFCFCF;
+  padding: 16px;
+  gap: 10px;
+  box-sizing: border-box;
+}
+
+.text-box:focus {
+  outline: 2px solid #FF640D;
+}
+
+.id-box.focused label,
+.password-box.focused label {
+  color: #FF640D;
+}
+
+nav {
+  background-color: white;
+  width: 375px; 
+  height: 51px;
+  display: flex;
+  border-top: 0.5px solid #FFE1D1;
+  justify-content: space-between;
+
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  box-sizing: border-box;
+  padding: 0 100px; 
+}
+
+nav div {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+nav img {
+  width: 20px;
+  margin-top: 5px;
+  margin-bottom: 2px; 
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+nav p {
+  font-size: 10px;
+  margin: 0; 
+}
+
+nav a {
+  text-decoration: none; 
+  color: inherit; 
+}
+
+.title-box-home {
+  text-align: center;
+  margin: 18px 0;
+}
+
+.search{
+  width: 100%;
+  height: 30px;
+  margin: 0 auto;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+}
+
+.search-box {
+  width: 247px;
+  font-size: 16px;
+  border: none;
+}
+
+.search-box:focus {
+  outline: 2px solid #FF640D;
+}
+
+.search-img {
+  width: 24px;
+  height: 24px;
+  margin-right: 15px;
+}
+
+.recipe-wrap {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.recipe {
+  margin: 0;
+  width: 150px;
+  height: 220px;
+  outline: 1px solid #FF640D;
+  border-radius: 10px;
+
+  text-decoration: none;
+  color: black;
+}
+
+.recipe-card {
+  text-decoration: none;
+  color: black;
+}
+
+.recipe-profile { 
+  width: 100%;
+  height: 30px;
+  display: flex;
+  vertical-align: middle;
+  padding: 5px;
+  padding-left: 10px;
+}
+
+.profile-img {
+  width: 21px;
+  height: 21px;
+  margin-right: 5px;
+}
+
+.ft-recipe {
+  font-size: 12px;
+}
+
+.recipe-img {
+  width: 150px;
+  height: 150px;
+}
+
+.recipe-name {
+  font-size: 10px;
+  height: 40px;
+  display:flex;
+  align-items: center;
+  padding-left: 10px;
+}
+
+.ft-recipe-small {
+  padding: 5px;
+  margin: 0;
+}
+
+.profileimg-img {
+  width: 21px;
+  height: 21px;
+
+  position: absolute;
+  top: 4px;
+  left: 10px;
+}
+
+.container2::-webkit-scrollbar {
+  width: 5px;
+}
+
+.container2::-webkit-scrollbar-thumb {
+  background-color: #D6D6D6;
+  border-radius: 10px;
+  max-height: 69px; 
+  margin-right: 4px;
+}
+
+.container2::-webkit-scrollbar-track {
+  background-color: white;
+  margin-right: 4px; 
 }
