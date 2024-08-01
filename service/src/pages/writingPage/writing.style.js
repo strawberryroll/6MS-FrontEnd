@@ -10,6 +10,16 @@ export const Wrapper = styled.div`
   font-family: "Noto Sans KR";
 `;
 
+export const Form = styled.form`
+  width: 100%;
+  margin-left: 2%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Noto Sans KR";
+`;
+
 export const CloseBox = styled.div`
   width: 100%;
   height: 15%;

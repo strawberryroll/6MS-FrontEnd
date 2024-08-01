@@ -1,5 +1,5 @@
 import PurposePresenter from "./purpose.presenter";
-import { data } from "../../data";
+import { data } from "../../send_data";
 import { useState } from "react";
 
 export default function PurposeComponent(props) {

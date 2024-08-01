@@ -2,7 +2,7 @@
 import * as S from "./recipe.style";
 import { useState } from "react";
 import { response_data } from "../../response_data";
-import { data } from "../../data";
+import { data } from "../../send_data";
 
 export default function RecipePresenterPage(props) {
 

@@ -8,7 +8,7 @@ import SurveyPage from './pages/surveyPage/survey';
 import RecipePage from './pages/recipePage/recipe';
 import WritingPage from './pages/writingPage/writing';
 import StartPage from './pages/startPage/start';
-import { data } from "./data";
+import { data } from "./send_data";
 
 function App() {
   return (

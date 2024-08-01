@@ -1,5 +1,5 @@
 import * as S from "./writing.style";
-import { data } from "../../data";
+import { data } from "../../send_data";
 import { useState } from "react";
 
 export default function WritingPage() {
@@ -20,27 +20,27 @@ export default function WritingPage() {
 
   const handleSelfIntroductionChange = (event) => {
     setSelfIntroduction(event.target.value);
-    data.writing.selfIntroduction = event.target.value; // Store the value in data object
+    data.writing.intro = event.target.value; // Store the value in data object
   };
 
   const handleMenuNameChange = (event) => {
     setMenuName(event.target.value);
-    data.writing.summary[0] = event.target.value; // Store the value in data object
+    data.writing.menu = event.target.value; // Store the value in data object
   };
 
   const handleDifficultyClick = (level) => {
     setSelectedDifficulty(level);
-    data.writing.summary[1] = level; // Store the value in data object
+    data.writing.level = level; // Store the value in data object
   };
 
   const handleServingChange = (event) => {
     setServing(event.target.value);
-    data.writing.summary[2] = event.target.value; // Store the value in data object
+    data.writing.servings = event.target.value; // Store the value in data object
   };
 
   const handlePriceClick = (price) => {
     setSelectedPrice(price);
-    data.writing.summary[3] = price; // Store the value in data object
+    data.writing.cost = price; // Store the value in data object
   };
 
   const handleIngredientChange = (index, field, value) => {
@@ -49,12 +49,12 @@ export default function WritingPage() {
     setIngredients(newIngredients);
 
     // Update the data object
-    data.writing.ingredients = newIngredients.reduce((acc, ingredient) => {
+    data.writing.ingredient = newIngredients.reduce((acc, ingredient) => {
       if (ingredient.name && ingredient.quantity) {
-        acc[ingredient.name] = [ingredient.quantity];
+        acc.push([ingredient.name, ingredient.quantity]);
       }
       return acc;
-    }, {});
+    }, []);
   };
 
   const handleAddIngredient = () => {
@@ -67,10 +67,7 @@ export default function WritingPage() {
     setCookingOrder(newCookingOrder);
 
     // Update the data object
-    data.writing.cookingOrder = newCookingOrder.reduce((acc, order, idx) => {
-      acc[idx + 1] = [order.step, order.image];
-      return acc;
-    }, {});
+    data.writing.content = newCookingOrder.map(order => order.step);
   };
 
   const handleAddCookingOrder = () => {
@@ -80,26 +77,39 @@ export default function WritingPage() {
   const handleImage = (e) => {
     // console.log(e.target.files);
     setImage(e.target.files[0]);
-    data.writing.image = e.target.files[0]
+    data.writing.recipeImages = e.target.files[0]
   };
 
   const logDataToConsole = () => {
     console.log(data);
   };
 
-  // function handleApi() {
-  //   const formData = new FormData();
-  //   formData.append('image', image);
-  //   axios.post('url', formData).then((res) => {
-  //     console.log(res);
-  //   })
-  // }
+  const onSubmitHandler = (e) => {
+    e.preventDefault(); // Prevent the default form submission behavior
+    fetch(`http://localhost:4000/api/writing`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data.writing)
+    })
+    .then(response => response.json())
+    .then(result => {
+      console.log(result);
+      // Handle the response here, like showing a success message or redirecting
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  };
 
   return (
     <S.Wrapper>
       <S.CloseBox>
         <S.Icon src="/images/close.png" style={{ marginRight: "auto" }} />
       </S.CloseBox>
+
+      <S.Form onSubmit={onSubmitHandler}>
 
       <S.Title style={{ padding: "5px", fontSize: "32px" }}>user님의 레시피를</S.Title>
       <S.Title style={{ padding: 0, fontSize: "32px", marginBottom: "25px" }}> 소개해주세요! </S.Title>
@@ -202,7 +212,9 @@ export default function WritingPage() {
       ))}
       <S.AddButton onClick={handleAddCookingOrder}>추가하기</S.AddButton>
 
-      <S.SubmitButton style={{ marginTop: 50 }}>작성 완료</S.SubmitButton>
+      <S.SubmitButton style={{ marginTop: 50 }} type="submit">작성 완료</S.SubmitButton>
+      </S.Form>
+
       <S.LogButton onClick={logDataToConsole}>콘솔에 데이터 확인</S.LogButton>
     </S.Wrapper>
   );

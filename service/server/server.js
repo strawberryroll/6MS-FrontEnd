@@ -3,12 +3,12 @@ const cors = require('cors');
 const app = express();
 
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 let response_data = [
-    // 내가 서버로부터 받는 데이터
-    {   
+    // 예제 데이터
+    {
         "recipeId": 0,
         "title": "abc",
         "recipeImages": [
@@ -18,8 +18,8 @@ let response_data = [
         "level": 2,
         "servings": 1,
         "cost": 10000,
-        "ingredient" : [
-            ["apple", "1개"], 
+        "ingredient": [
+            ["apple", "1개"],
             ["banana", "2개"]
         ],
         "content": [
@@ -30,9 +30,6 @@ let response_data = [
         "kcal": "abc",
         "average": 0.0,
         "nickname": "test1",
-
-
-
         "review": {
             "totalGrade": 4,
             "response": [
@@ -53,26 +50,27 @@ let response_data = [
             ],
         },
         "channel": "https://www.youtube.com/",
-    },
-
-    
-
+    }
 ];
 
- 
-
-app.get('/', function (req, res) {
-  res.send('Hello World');
-})
+app.get('/', (req, res) => {
+    res.send('Hello World');
+});
 
 app.get('/api/recipe', (req, res) => {
-    res.json(response_data.recipe) ;
-})
+    res.json(response_data);
+});
+
+app.post('/api/writing', (req, res) => {
+    const data = req.body;
+    res.json(data); // 응답을 JSON으로 반환
+});
 
 app.post('/api/survey', (req, res) => {
-    const {survey} = req.body;
-    res.send(survey);
-})
+    const survey = req.body;
+    res.json(survey); // 응답을 JSON으로 반환
+});
+
 app.listen(4000, () => {
-    console.log("server start!!");
+    console.log("Server started on port 4000");
 });
