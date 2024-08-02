@@ -2,14 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import './search_result.css'
 
-import searchIcon from './검색결과_돋보기.png';
-import searchInputIcon from './검색결과_search.png';
-import profileIcon from './profile.png';
-import tofuRecipeImage from './두부조림_썸네일.png';
-import eggFriedRiceImage from './계란볶음밥_썸네일.png';
-import homeIconOn from './네브바_홈_on.png';
-import myIconOff from './네브바_마이_off.png';
-import writeIconOff from './네브바_글쓰기_off.png';
+import searchIcon from './images/search_magnifier.png';
+import searchInputIcon from './images/search_result.png';
+import profileIcon from './images/profile.png';
+import tofuRecipeImage from './images/tofuImage.png';
+import eggFriedRiceImage from './images/eggFriedRiceImage.png';
+import NavBar from '../../components/navbarUnit/navbar';
+// import homeIconOn from './images/네브바_홈_on.png';
+// import myIconOff from './images/네브바_마이_off.png';
+// import writeIconOff from './images/네브바_글쓰기_off.png';
 
 const SearchResultPage = () => {
   return (
@@ -58,7 +59,9 @@ const SearchResultPage = () => {
         </div>
       </main>
 
-      <nav>
+      <NavBar currentPage="home" />
+
+      {/* <nav>
         <div>
           <img src={homeIconOn} alt="" />
           <p id="focused">홈</p>
@@ -71,7 +74,7 @@ const SearchResultPage = () => {
           <img src={writeIconOff} alt="" />
           <p id="search_result_write">글쓰기</p>
         </div>
-      </nav>
+      </nav> */}
     </div>
   );
 };

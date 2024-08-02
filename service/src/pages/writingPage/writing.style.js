@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
-  width: 110%;
+  width: 100%;
   height: 100%;
-  margin-left: -20px;
+  margin-left: -2px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -182,7 +182,7 @@ export const PriceOptions = styled.div`
   flex-wrap: wrap;
   justify-content: row;
   width: 75%;
-  margin-left: 20px;
+  margin-left: 16px;
 `;
 
 export const PriceOption = styled.div`

@@ -2,6 +2,7 @@ import * as S from "./writing.style";
 import NavBar from '../../components/navbarUnit/navbar';
 import { data } from "../../send_data";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function WritingPage() {
   const [title, setTitle] = useState("");
@@ -107,7 +108,7 @@ export default function WritingPage() {
   return (
     <S.Wrapper>
       <S.CloseBox>
-        <S.Icon src="/images/close.png" style={{ marginRight: "auto" }} />
+      <Link to='/home'><S.Icon src="/images/close.png" style={{ marginRight: "auto" }} /></Link>
       </S.CloseBox>
 
       <S.Form onSubmit={onSubmitHandler}>

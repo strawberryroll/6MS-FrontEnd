@@ -3,6 +3,7 @@ import PreferenceComponent from "../../components/preferenceUnit/preference.cont
 import PurposeComponent from "../../components/purposeUnit/purpose.container";
 import { useState } from "react";
 import { data } from "../../send_data";
+import { Link } from "react-router-dom";
 
 export default function SurveyPresenterPage(props) {
   const [preference, setPreference] = useState([]);
@@ -40,7 +41,7 @@ export default function SurveyPresenterPage(props) {
 
   return (
     <S.Wrapper>
-      <S.CloseBox> <S.Close src="/images/close.png" /> </S.CloseBox>
+      <S.CloseBox> <Link to='/home'> <S.Close src="/images/close.png" /> </Link> </S.CloseBox>
       <S.Form onSubmit={onSubmitHandler}>
         <S.GroupBox>
           {props.page_number === "0" && (

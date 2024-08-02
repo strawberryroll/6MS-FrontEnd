@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import './signup.css'
 import icon from './cancle.png';
 import { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 
 const SignupForm = () => {
@@ -23,7 +24,7 @@ const SignupForm = () => {
     return (
       <>
         <header id="top">
-          <img src= { icon } style={ { width : "24px", height : "24px" } } alt="Cancel Icon" />
+        <Link to='/'><img src= { icon } style={ { width : "24px", height : "24px" } } alt="Cancel Icon" /></Link>
         </header>
   
         <div className="signup">

@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './mypage.css';
-import profileIcon from './img/profile.png';
-import editIcon from './img/edit.png';
-import tofuRecipeImage from './img/tofuImage.png';
-import eggFriedRiceImage from './img/eggFriedRiceImage.png';
-import homeIconOff from './img/navHome_off.png';
-import myIconOn from './img/navMy_on.png';
-import writeIconOff from './img/navWrite_off.png';
+import profileIcon from './images/profile.png';
+import editIcon from './images/edit.png';
+import tofuRecipeImage from './images/tofuImage.png';
+import eggFriedRiceImage from './images/eggFriedRiceImage.png';
+import homeIconOff from './images/navHome_off.png';
+import myIconOn from './images/navMy_on.png';
+import writeIconOff from './images/navWrite_off.png';
 import NavBar from '../../components/navbarUnit/navbar';
 
 const MyPage = () => {
