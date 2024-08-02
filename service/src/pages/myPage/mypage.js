@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './mypage.css';
 import profileIcon from './img/profile.png';
 import editIcon from './img/edit.png';
@@ -7,6 +8,7 @@ import eggFriedRiceImage from './img/eggFriedRiceImage.png';
 import homeIconOff from './img/navHome_off.png';
 import myIconOn from './img/navMy_on.png';
 import writeIconOff from './img/navWrite_off.png';
+import NavBar from '../../components/navbarUnit/navbar';
 
 const MyPage = () => {
 const userName = "마피"; // 여기에 사용자 이름을 동적으로 설정할 수 있습니다
@@ -91,20 +93,23 @@ return (
         </div>
     </section>
 
-    <nav>
-        <div>
-        <img src={homeIconOff} alt="홈" />
-        <p>홈</p>
-        </div>
-        <div>
-        <img src={myIconOn} alt="MY" />
-        <p id="focused">MY</p>
-        </div>
-        <div>
-        <img src={writeIconOff} alt="글쓰기" />
-        <p id="search_result_write">글쓰기</p>
-        </div>
-    </nav>
+
+    {/* <nav>
+                <Link to="/home">
+                    <img src={homeIconOff} alt="홈" />
+                    <p>홈</p>
+                </Link>
+                <Link to="/my">
+                    <img src={myIconOn} alt="MY" />
+                    <p id="focused">MY</p>
+                </Link>
+                <Link to="/writing">
+                    <img src={writeIconOff} alt="글쓰기" />
+                    <p id="search_result_write">글쓰기</p>
+                </Link>
+            </nav> */}
+
+    <NavBar currentPage="my" />
     </div>
 );
 };

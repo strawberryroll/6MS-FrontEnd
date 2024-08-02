@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
-  width: 95%;
-  margin-left: 2%;
+  width: 110%;
   height: 100%;
+  margin-left: -20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -156,7 +156,7 @@ export const InputWrapper = styled.div`
 `;
 
 export const Input = styled.input`
-  width: 35%;
+  width: 45%;
   font-size: 8px;
   padding-left: 5px;
   margin: 10px 0;

@@ -151,6 +151,10 @@ nav {
     padding: 0 100px; 
 }
 
+nav a {
+    text-decoration: none; /* 링크의 기본 밑줄 제거 */
+}
+
 nav div {
     display: flex;
     flex-direction: column;
@@ -165,6 +169,7 @@ nav img {
 
 nav p {
     font-size: 10px;
+    text-align: center;
     margin: 0; /* 텍스트의 여백 제거 */
 }
 #focused {

@@ -1,4 +1,5 @@
 import * as S from "./writing.style";
+import NavBar from '../../components/navbarUnit/navbar';
 import { data } from "../../send_data";
 import { useState } from "react";
 
@@ -135,7 +136,7 @@ export default function WritingPage() {
         <S.InputWrapper>
           <S.Label>메뉴이름</S.Label>
           <S.Input
-            style={{ width: "40%" }}
+            // style={{ width: "45%" }}
             placeholder="메뉴의 이름을 입력해주세요"
             value={menuName}
             onChange={handleMenuNameChange}
@@ -216,6 +217,9 @@ export default function WritingPage() {
       </S.Form>
 
       <S.LogButton onClick={logDataToConsole}>콘솔에 데이터 확인</S.LogButton>
+      
+      <NavBar currentPage="writing" />
     </S.Wrapper>
+    
   );
 }
