@@ -1,12 +1,12 @@
 import React from 'react';
 import './mypage.css';
-import profileIcon from './profile.png';
-import editIcon from './마이페이지_수정.png';
-import tofuRecipeImage from './두부조림_썸네일.png';
-import eggFriedRiceImage from './계란볶음밥_썸네일.png';
-import homeIconOff from './네브바_홈_off.png';
-import myIconOn from './네브바_마이_on.png';
-import writeIconOff from './네브바_글쓰기_off.png';
+import profileIcon from './img/profile.png';
+import editIcon from './img/edit.png';
+import tofuRecipeImage from './img/tofuImage.png';
+import eggFriedRiceImage from './img/eggFriedRiceImage.png';
+import homeIconOff from './img/navHome_off.png';
+import myIconOn from './img/navMy_on.png';
+import writeIconOff from './img/navWrite_off.png';
 
 const MyPage = () => {
 const userName = "마피"; // 여기에 사용자 이름을 동적으로 설정할 수 있습니다

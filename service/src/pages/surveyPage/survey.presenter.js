@@ -56,6 +56,7 @@ export default function SurveyPresenterPage(props) {
             (props.page_number === "0" && purpose === "") ||
             (props.page_number === "1" && preference.length === 0)
           }
+          onClick={props.onClickNext}
         >
           선택 완료
         </S.Button>

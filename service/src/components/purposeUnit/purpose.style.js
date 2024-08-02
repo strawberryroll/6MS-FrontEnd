@@ -20,6 +20,7 @@ export const Group = styled.span`
   height: 210px;
   background: rgba(255, 100, 13, 0.2);
   border-radius: 10px;
+  margin-left: 10px;
  
   display: flex;
   flex-direction: column;

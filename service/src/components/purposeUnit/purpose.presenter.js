@@ -10,7 +10,7 @@ export default function PurposePresenter(props) {
               <S.Name>근육키우기</S.Name>
           </S.Group>
           <S.Group id="급찐급빠" onClick={props.onClickOption}>
-              <S.Icon src="/images/purpose/sudden.png" style={{ width: "140px" }} />
+              <S.Icon src="/images/purpose/sudden.png" style={{ width: "115px" }} />
               <S.Name>급찐급빠</S.Name>
           </S.Group>
         </S.RowGroup>
