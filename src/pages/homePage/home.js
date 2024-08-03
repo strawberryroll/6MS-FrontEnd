@@ -4,8 +4,7 @@ import profileImg from "./profile.png";
 import writeImg from "./write.png";
 import searchImg from "./search.png";
 import profileimgImg from "./profileimg.png";
-import { Link } from "react-router-dom";
-import './home.css';
+import * as S from "./home.style";
 
 function HomePage() {
   const [cards, setCards] = useState([
@@ -18,83 +17,65 @@ function HomePage() {
     { id: 7, nickname: '닉네임7', recipeName: '요리 이름7', image: profileimgImg }
   ]);
 
-  const rows = [];
-  for (let i = 0; i < cards.length; i += 2) {
-    rows.push(cards.slice(i, i + 2));
-  }
-
   return (
-    <div className="container2">
-      <div className="title-box-home">
-        <h1 className="ft-big">나의 취향저격 레시피🔫</h1>
-      </div>
-      <Link to={'/search'} className="search-link"><button className="search">
-        <img src={searchImg} className="search-img" />
-        <span className="search-box">레시피 검색하기</span>
-      </button></Link>
-      {/* <div className="container3">
-        {rows.map((row, rowIndex) => (
-          <div className="recipe-wrap" key={rowIndex}>
-            {row.map(card => (
-              <Card 
-                key={card.id}
-                nickname={card.nickname} 
-                recipeName={card.recipeName} 
-                image={card.image} 
-              />
-            ))}
-          </div>
+    <S.Container2>
+      <S.TitleBoxHome>
+        <S.FtBig>나의 취향저격 레시피🔫</S.FtBig>
+      </S.TitleBoxHome>
+      <S.SearchLink to='/search'>
+        <S.Search>
+          <S.SearchImg src={searchImg} />
+          <S.SearchBox>레시피 검색하기</S.SearchBox>
+        </S.Search>
+      </S.SearchLink>
+      <S.Container3>
+        {cards.map(card => (
+          <Card 
+            key={card.id}
+            nickname={card.nickname} 
+            recipeName={card.recipeName} 
+            image={card.image} 
+          />
         ))}
-      </div> */}
-      <div className="container3">
-  {cards.map(card => (
-    <Card 
-      key={card.id}
-      nickname={card.nickname} 
-      recipeName={card.recipeName} 
-      image={card.image} 
-    />
-  ))}
-</div>
-
-      <nav>
-        <Link to={'/home'}>
-          <div>
-            <img src={homeImg} alt="홈" />
-            <p>홈</p>
-          </div>
-        </Link>
-        <Link to={'/my'}>
-          <div>
-            <img src={profileImg} alt="MY" />
-            <p>MY</p>
-          </div>
-        </Link>
-        <Link to={'/write'}>
-          <div>
-            <img src={writeImg} alt="글쓰기" />
-            <p>글쓰기</p>
-          </div>
-        </Link>
-      </nav>
-    </div>
+      </S.Container3>
+      <S.Nav>
+        <S.NavLink to='/home'>
+          <S.NavDiv>
+            <S.NavImg src={homeImg} alt="홈" />
+            <S.NavP>홈</S.NavP>
+          </S.NavDiv>
+        </S.NavLink>
+        <S.NavLink to='/my'>
+          <S.NavDiv>
+            <S.NavImg src={profileImg} alt="MY" />
+            <S.NavP>MY</S.NavP>
+          </S.NavDiv>
+        </S.NavLink>
+        <S.NavLink to='/write'>
+          <S.NavDiv>
+            <S.NavImg src={writeImg} alt="글쓰기" />
+            <S.NavP>글쓰기</S.NavP>
+          </S.NavDiv>
+        </S.NavLink>
+      </S.Nav>
+    </S.Container2>
   );
 }
 
 function Card({ nickname, recipeName, image }) {
   return (
-    <Link to={'#'} className="recipe-card">
-      <div className="recipe">
-        <div className="recipe-profile">
-          <img src={image} className="profile-img" />
-          <p className="ft-recipe">{nickname}</p>
-        </div>
-        <img src={image} className="recipe-img" />
-        <div className="recipe-name">
-          <p className="ft-recipe-small">{recipeName}</p>
-        </div>
-      </div>
-    </Link>
+    <S.RecipeCard to='#'>
+      <S.Recipe>
+        <S.RecipeProfile>
+          <S.ProfileImg src={image} />
+          <S.FtRecipe>{nickname}</S.FtRecipe>
+        </S.RecipeProfile>
+        <S.RecipeImg src={image} />
+        <S.RecipeName>
+          <S.FtRecipeSmall>{recipeName}</S.FtRecipeSmall>
+        </S.RecipeName>
+      </S.Recipe>
+    </S.RecipeCard>
   );
 }
 
