@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
-  width: 100%;
+  width: 95%;
   height: 100%;
   margin-left: -2px;
   display: flex;
@@ -253,21 +253,6 @@ export const SubmitButton = styled.button`
   font-family: "Noto Sans KR";
 `;
 
-export const LogButton = styled.button`
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 16px;
-  color: #fff;
-  background-color: #007bff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #0056b3;
-  }
-`;
-
 export const Box = styled.div`
   width: 90%;
   height: 650px;
@@ -286,5 +271,138 @@ export const Text = styled.div`
   font-weight: 400;
   font-size: 10px;
   text-align: center;
+`;
+
+export const CategorySelector = styled.div`
+  cursor: pointer;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  width: 50%;
+  box-sizing: border-box;
+`;
+
+export const CategoryOptions = styled.div`
+  // margin-top: 5px;
+  // border: 1px solid #ccc;
+  background: #fff;
+  width: 55%;
+  height: 250px;
+  box-shadow: 2px 2px 7.5px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  padding: 10px;
+`;
+
+export const CategoryOption = styled.label`
+  display: flex;
+  // justify-content: center;
+  align-items: center;
+  padding: 3px;
+  cursor: pointer;
+  font-size: 8px;
+  font-height: 400;
+  &:hover {
+    background: #f1f1f1;
+  }
+`;
+
+export const RadioButton = styled.input`
+  margin-right: 8px;
+  appearance: none;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  position: relative;
+  outline: none;
+
+  &:checked {
+    background-color: #FF5C00;
+    border: none;
+  }
+
+  &:checked::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #fff;
+  }
+`;
+
+export const RadioWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+`;
+
+export const RadioInput = styled.input`
+  width: 63%;
+  font-size: 8px;
+  padding: 7px;
+  margin: 10px 0;
+  box-sizing: border-box;
+  border: 1px solid #FF640D;
+  border-radius: 10px;
+  font-family: "Noto Sans KR";
+
+  &:focus {
+    border: 1px solid black;
+    border-radius: 10px;
+    outline: none;
+  }
+`;
+
+export const LogButton = styled.button`
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
+
+export const Popup = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const PopupContent = styled.div`
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+`;
+
+export const PopupMessage = styled.p`
+  margin-bottom: 20px;
+`;
+
+export const PopupCloseButton = styled.button`
+  padding: 10px 20px;
+  background-color: #ff640d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 `;
 

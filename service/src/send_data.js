@@ -18,10 +18,12 @@ export let data = {
     writing: {
         title: "",
         intro: "",
+        url: "",
         menu: "",
+        category: "일상",
         level: 0,
         servings: 0,
-        cost: 0,
+        cost: "",
         ingredient: [],
         content: [],
         requiredTime: 0,

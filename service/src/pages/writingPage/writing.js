@@ -1,4 +1,4 @@
-// writing.js
+import * as React from 'react';
 import * as S from "./writing.style";
 import NavBar from '../../components/navbarUnit/navbar';
 import { data } from "../../send_data";
@@ -8,43 +8,53 @@ import { Link, useNavigate } from "react-router-dom";
 export default function WritingPage() {
   const [title, setTitle] = useState("");
   const [selfIntroduction, setSelfIntroduction] = useState("");
-  const [menuName, setMenuName] = useState(""); // New state for menu name
+  const [menuName, setMenuName] = useState("");
   const [selectedDifficulty, setSelectedDifficulty] = useState(null);
   const [serving, setServing] = useState("");
   const [selectedPrice, setSelectedPrice] = useState(null);
   const [ingredients, setIngredients] = useState([{ name: "", quantity: "" }]);
-  const [cookingOrder, setCookingOrder] = useState([{ step: "", image: "" }]); // Array to store multiple steps
+  const [cookingOrder, setCookingOrder] = useState([{ step: "", image: "" }]);
   const [image, setImage] = useState('');
+  const [category, setCategory] = useState("일상"); 
+  const [showCategoryOptions, setShowCategoryOptions] = useState(false);
+  const [url, setUrl] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
   const navigate = useNavigate();
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
-    data.writing.title = event.target.value; // Store the value in data object
+    data.writing.title = event.target.value;
   };
 
   const handleSelfIntroductionChange = (event) => {
     setSelfIntroduction(event.target.value);
-    data.writing.intro = event.target.value; // Store the value in data object
+    data.writing.intro = event.target.value;
+  };
+
+  const handleUrlChange = (event) => {
+    setUrl(event.target.value);
+    data.writing.url = event.target.value;
   };
 
   const handleMenuNameChange = (event) => {
     setMenuName(event.target.value);
-    data.writing.menu = event.target.value; // Store the value in data object
+    data.writing.menu = event.target.value;
   };
 
   const handleDifficultyClick = (level) => {
     setSelectedDifficulty(level);
-    data.writing.level = level; // Store the value in data object
+    data.writing.level = level;
   };
 
   const handleServingChange = (event) => {
     setServing(event.target.value);
-    data.writing.servings = event.target.value; // Store the value in data object
+    data.writing.servings = event.target.value;
   };
 
   const handlePriceClick = (price) => {
     setSelectedPrice(price);
-    data.writing.cost = price; // Store the value in data object
+    data.writing.cost = price;
   };
 
   const handleIngredientChange = (index, field, value) => {
@@ -52,7 +62,6 @@ export default function WritingPage() {
     newIngredients[index][field] = value;
     setIngredients(newIngredients);
 
-    // Update the data object
     data.writing.ingredient = newIngredients.reduce((acc, ingredient) => {
       if (ingredient.name && ingredient.quantity) {
         acc.push([ingredient.name, ingredient.quantity]);
@@ -70,7 +79,6 @@ export default function WritingPage() {
     newCookingOrder[index].step = value;
     setCookingOrder(newCookingOrder);
 
-    // Update the data object
     data.writing.content = newCookingOrder.map(order => order.step);
   };
 
@@ -79,28 +87,89 @@ export default function WritingPage() {
   };
 
   const handleImage = (e) => {
-    // console.log(e.target.files);
     setImage(e.target.files[0]);
     data.writing.recipeImages = e.target.files[0];
   };
 
+  const handleCategoryClick = () => {
+    setShowCategoryOptions(!showCategoryOptions);
+  };
+
+  const handleCategorySelect = (selectedCategory) => {
+    setCategory(selectedCategory);
+    data.writing.category = selectedCategory;
+    setShowCategoryOptions(false);
+  };
+
+  const logDataToConsole = () => {
+    console.log(data);
+  };
+
+  const validateForm = () => {
+    if (!title) {
+      setPopupMessage("제목을 작성해주세요.");
+      return false;
+    }
+    if (!selfIntroduction) {
+      setPopupMessage("자기소개 한 마디를 작성해주세요.");
+      return false;
+    }
+    if (!menuName) {
+      setPopupMessage("메뉴의 이름을 입력해주세요.");
+      return false;
+    }
+    if (!selectedDifficulty) {
+      setPopupMessage("난이도를 선택해주세요.");
+      return false;
+    }
+    if (!serving) {
+      setPopupMessage("기준인분을 입력해주세요.");
+      return false;
+    }
+    if (!selectedPrice) {
+      setPopupMessage("가격을 선택해주세요.");
+      return false;
+    }
+    if (ingredients.some(ingredient => !ingredient.name || !ingredient.quantity)) {
+      setPopupMessage("재료와 개수를 모두 입력해주세요.");
+      return false;
+    }
+    if (cookingOrder.some(order => !order.step)) {
+      setPopupMessage("조리순서를 모두 입력해주세요.");
+      return false;
+    }
+    // if (!image) {
+    //   setPopupMessage("완성본 사진을 첨부해주세요.");
+    //   return false;
+    // }
+    return true;
+  };
+
   const onSubmitHandler = (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
-    fetch(`http://13.124.20.140:8080/board/create`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data.writing)
-    })
-    .then(response => response.json())
-    .then(result => {
-      console.log(result);
-      navigate('/success', { state: { result } }); // Navigate to the success page with the result data
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
+    e.preventDefault();
+    if (validateForm()) {
+      fetch(`http://13.124.20.140:8080/board/create`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data.writing)
+      })
+      .then(response => response.json())
+      .then(result => {
+        console.log(result);
+        navigate('/success', { state: { result } });
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    } else {
+      setShowPopup(true);
+    }
+  };
+
+  const closePopup = () => {
+    setShowPopup(false);
   };
 
   return (
@@ -129,6 +198,7 @@ export default function WritingPage() {
           <span>user</span>
         </S.UserBox>
         <S.TextArea placeholder="자기소개 한 마디를 작성해주세요" value={selfIntroduction} onChange={handleSelfIntroductionChange}></S.TextArea>
+        <S.TextArea placeholder="URL 추가" value={url} onChange={handleUrlChange}></S.TextArea>
 
         <S.Info>
           <S.InputWrapper>
@@ -139,6 +209,43 @@ export default function WritingPage() {
               onChange={handleMenuNameChange}
             />
           </S.InputWrapper>
+
+          <S.InputWrapper>
+            <S.Label style={{width: 60}}>카테고리</S.Label>
+            <S.RadioWrapper>
+            <S.RadioInput 
+              onClick={handleCategoryClick}
+              placeholder="카테고리를 선택해주세요"
+              value={category}
+              readOnly
+              style = {{
+                backgroundImage: 'url("/images/arrowDown.png")',
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "right 10px center",
+              backgroundSize: "10px 5px"
+              }}
+            />
+            {showCategoryOptions && (
+              <S.CategoryOptions>
+                {["일상", "초스피드", "해장", "안주", "다이어트", "간식",
+                "야식", "글로벌", "기념일", "집들이"
+                ].map((option) => (
+                  <S.CategoryOption key={option}>
+                    <S.RadioButton
+                      type="radio"
+                      name="category"
+                      value={option}
+                      checked={category === option}
+                      onChange={() => handleCategorySelect(option)}
+                    />
+                    {option}
+                  </S.CategoryOption>
+                ))}
+              </S.CategoryOptions>
+            )}
+            </S.RadioWrapper>
+          </S.InputWrapper>
+
           <S.Difficulty>
             <S.Label>난이도</S.Label>
             <S.DifficultyLevels>
@@ -155,7 +262,7 @@ export default function WritingPage() {
           </S.Difficulty>
           <S.InputWrapper>
             <S.Label>기준인분</S.Label>
-            <S.Input placeholder="기준인분을 입력해주세요" value={serving} onChange={handleServingChange} />
+            <S.Input type="number" placeholder="기준인분을 입력해주세요" value={serving} onChange={handleServingChange} />
           </S.InputWrapper>
           <S.Price>
             <S.Label>가격</S.Label>
@@ -182,6 +289,7 @@ export default function WritingPage() {
               onChange={(e) => handleIngredientChange(index, "name", e.target.value)}
             />
             <S.IngredientInput
+              type="number" 
               placeholder="개수를 입력해주세요"
               value={ingredient.quantity}
               onChange={(e) => handleIngredientChange(index, "quantity", e.target.value)}
@@ -212,6 +320,15 @@ export default function WritingPage() {
 
         <S.SubmitButton style={{ marginTop: 50 }} type="submit">작성 완료</S.SubmitButton>
       </S.Form>
+      {showPopup && (
+        <S.Popup>
+          <S.PopupContent>
+            <S.PopupMessage>{popupMessage}</S.PopupMessage>
+            <S.PopupCloseButton onClick={closePopup}>닫기</S.PopupCloseButton>
+          </S.PopupContent>
+        </S.Popup>
+      )}
+      <S.LogButton onClick={logDataToConsole}>콘솔에 데이터 확인</S.LogButton>
       <NavBar currentPage="writing" />
     </S.Wrapper>
   );
