@@ -9,6 +9,7 @@ import MyPage from './pages/myPage/mypage';
 import SurveyPage from './pages/surveyPage/survey';
 import RecipePage from './pages/recipePage/recipe';
 import WritingPage from './pages/writingPage/writing';
+import SuccessPage from './pages/writingPage/success';
 import StartPage from './pages/startPage/start';
 import Search from './pages/search/search';
 import SearchResultPage from './pages/search/search_result';
@@ -28,10 +29,11 @@ function App() {
         </Route>
         <Route path='/home' element={<HomePage />}></Route>
         <Route 
-          path='/recipe/:id' 
+          path='/recipe/:recipeId' 
           element={<RecipePage data={data} />}>
         </Route>
         <Route path='/writing' element={<WritingPage />}></Route>
+        <Route path='/success' element={<SuccessPage />}></Route>
         <Route path='/my' element={<MyPage />}></Route>
         <Route path='/search' element={<Search />}></Route>
         <Route path='/search/result' element={<SearchResultPage />}></Route>

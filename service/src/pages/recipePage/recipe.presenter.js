@@ -1,18 +1,14 @@
 // recipe.presenter.js
 import * as S from "./recipe.style";
 import { useState } from "react";
-import { response_data } from "../../response_data";
-import { data } from "../../send_data";
 
-export default function RecipePresenterPage(props) {
-
-  const { title, recipeImages, intro, level, servings, cost, ingredient, content, requiredTime, kcal, average, nickname, review, channel  } = response_data[props.page_number];
-  
+export default function RecipePresenterPage({ data, reviewData, recipeId }) {
+  const { title, recipeImages, intro, level, servings, cost, fullRecipe, content, requiredTime, kcal, average, nickname, channel } = data;
   const summaryWidths = [52, 36, 50, 49, 69];
-  
+
   const [userReview, setUserReview] = useState('');
   const [userRating, setUserRating] = useState(0);
-  const [reviews, setReviews] = useState(review.response);
+  const [reviews, setReviews] = useState(reviewData || []);
 
   const handleReviewChange = (event) => {
     setUserReview(event.target.value);
@@ -22,23 +18,36 @@ export default function RecipePresenterPage(props) {
     setUserRating(rating);
   };
 
-  const handleReviewSubmit = () => {
+  const handleReviewSubmit = (event) => {
+    event.preventDefault();
     if (userReview && userRating) {
       const newReview = {
-        user: nickname,
-        grade: userRating,
-        text: userReview,
-        date: new Date().toISOString().split("T")[0], // 현재 날짜 저장
-        image: "", // 이미지 추가 기능을 구현하려면 여기에서 추가
+        nickname: nickname,
+        score: userRating,
+        comment: userReview,
+        date: new Date().toISOString().split("T")[0], // current date
+        image: "", // add image handling if needed
       };
       setReviews([newReview, ...reviews]);
       setUserReview('');
       setUserRating(0);
 
-      // Save to data object
-      data.recipe.review = newReview;
-      console.log(newReview);
-      console.log(data);
+      // Post to server
+      fetch(`http://13.124.20.140:8080/board/${recipeId}/comment`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ user: nickname, grade: userRating, text: userReview, date: new Date().toISOString().split("T")[0] })
+      })
+      .then(response => response.json())
+      .then(result => {
+        console.log(result);
+        // Handle the response, e.g., show success message
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
     }
   };
 
@@ -47,27 +56,28 @@ export default function RecipePresenterPage(props) {
     window.open(url, '_blank');
   };
 
-
   return (
     <S.Wrapper>
       <S.CloseBox>
         <S.Icon src="/images/close.png" style={{ marginRight: "auto" }} />
         <S.Icon src="/images/search.png" />
       </S.CloseBox>
-      
+
       <S.Title>{title}</S.Title>
-      <S.MainImg src={recipeImages} />
+      {recipeImages && recipeImages.length > 0 && (
+        <S.MainImg src={recipeImages[0]} />
+      )}
       <S.UserBox>
         <S.Icon src="/images/user.png" />
         <span>{intro}</span>
       </S.UserBox>
-      
+
       <S.SummaryBox>
-          <S.Summary style={{ width: `${summaryWidths[0]}px` }}> {level} </S.Summary>
-          <S.Summary style={{ width: `${summaryWidths[1]}px` }}> {servings} </S.Summary>
-          <S.Summary style={{ width: `${summaryWidths[2]}px` }}> {kcal} </S.Summary>
-          <S.Summary style={{ width: `${summaryWidths[3]}px` }}> {requiredTime} </S.Summary>
-          <S.Summary style={{ width: `${summaryWidths[4]}px` }}> {cost} </S.Summary>
+        <S.Summary style={{ width: `${summaryWidths[0]}px` }}> {level} </S.Summary>
+        <S.Summary style={{ width: `${summaryWidths[1]}px` }}> {servings} </S.Summary>
+        <S.Summary style={{ width: `${summaryWidths[2]}px` }}> {kcal} </S.Summary>
+        <S.Summary style={{ width: `${summaryWidths[3]}px` }}> {requiredTime} </S.Summary>
+        <S.Summary style={{ width: `${summaryWidths[4]}px` }}> {cost} </S.Summary>
       </S.SummaryBox>
 
       <S.Title>재료</S.Title>
@@ -81,11 +91,11 @@ export default function RecipePresenterPage(props) {
           </S.TableRow>
         </S.TableHead>
         <S.TableBody>
-          {Object.entries(ingredient).map(([ingredient, details], index) => (
+          {fullRecipe?.map(([ingredient, quantity], index) => (
             <S.TableRow key={index}>
               <S.TableCell>{ingredient}</S.TableCell>
               <S.TableCell></S.TableCell>
-              <S.TableCell>{details}</S.TableCell>
+              <S.TableCell>{quantity}</S.TableCell>
               <S.TableCell>
                 <S.Button onClick={() => handlePurchase(ingredient)}>구매</S.Button>
               </S.TableCell>
@@ -98,9 +108,8 @@ export default function RecipePresenterPage(props) {
       <S.OrderList>
         {content.map((instruction, index) => (
           <S.OrderItem key={index}>
-            <S.Step>{index+1}</S.Step>
+            <S.Step>{index + 1}</S.Step>
             <S.Instruction>{instruction}</S.Instruction>
-            {/* <S.OrderImage src={`/images/${instruction[1]}`} /> */}
           </S.OrderItem>
         ))}
       </S.OrderList>
@@ -111,16 +120,8 @@ export default function RecipePresenterPage(props) {
           <S.Icon src="/images/user.png" />
           <S.UserName>{intro}</S.UserName>
         </S.UserProfile>
-        <S.Rating>
-          <S.StarRating>평점</S.StarRating>
-          <S.Stars>
-            {[...Array(5)].map((_, i) => (
-              <S.Star key={i} filled={i < average} />
-            ))}
-          </S.Stars>
-        </S.Rating>
       </S.UserSection>
-        
+
       <S.UserChannel>
         주 채널 : <S.ChannelLink href={channel}>{channel}</S.ChannelLink>
       </S.UserChannel>
@@ -133,69 +134,75 @@ export default function RecipePresenterPage(props) {
         ))}
       </S.ReportItems>
 
-      <S.UserSection>
-        <S.Title style={{marginLeft: 0}}>후기</S.Title>
-        <S.Rating>
-          <S.StarRating style={{width: 20}}>평점</S.StarRating>
-          <S.Stars>
-            {[...Array(5)].map((_, i) => (
-              <S.Star key={i} filled={i < review.totalGrade} />
-            ))}
-          </S.Stars>
-        </S.Rating>
-      </S.UserSection>
-      
-      <S.Reviews>
-        {reviews.map((review, index) => (
-          <S.Review key={index}>
-            <S.UserSection>
-              <S.UserProfile>
-                <S.Icon src="/images/user.png" />
-                <S.UserName>{review.user}</S.UserName>
-              </S.UserProfile>
-              <S.Rating>
-                <S.StarRating>별점</S.StarRating>
+      {reviews.length > 0 && (
+        <>
+          <S.UserSection>
+            <S.Title style={{ marginLeft: 0 }}>후기</S.Title>
+            <S.Rating>
+              <S.StarRating style={{ width: 20 }}>평점</S.StarRating>
+              <S.Stars>
                 {[...Array(5)].map((_, i) => (
-                  <S.Star key={i} filled={i < review.grade} />
+                  <S.Star key={i} filled={i < (average || 0)} />
                 ))}
-              </S.Rating>
-            </S.UserSection>
-            <S.ReviewTextBox>
-              <S.ReviewSmallBox>
-                <S.ReviewText>{review.text}</S.ReviewText>
-                <S.ReviewDate>{review.date}</S.ReviewDate>
-              </S.ReviewSmallBox>
-              {review.image && <S.ReviewImage src={review.image} />}
-            </S.ReviewTextBox>
-          </S.Review>
-        ))}
-      </S.Reviews>
+              </S.Stars>
+            </S.Rating>
+          </S.UserSection>
 
-      <S.MyReview>
-        <S.UserSection>
-          <S.UserProfile>
-            <S.Icon src="/images/user.png" />
-            <S.UserName>{nickname}</S.UserName>
-          </S.UserProfile>
-          <S.Rating>
-            <S.StarRating>별점</S.StarRating>
-            <S.Stars>
-              {[...Array(5)].map((_, i) => (
-                <S.Star
-                  key={i}
-                  filled={i < userRating}
-                  onClick={() => handleRatingChange(i + 1)}
-                />
-              ))}
-            </S.Stars>
-          </S.Rating>
-        </S.UserSection>
-        <S.InputReview value={userReview} onChange={handleReviewChange} />
-        <S.IconButtonContainer>
-          <S.Icon style={{marginTop: 10}} src="/images/attach.png" />
-          <S.WriteButton onClick={handleReviewSubmit}>작성</S.WriteButton>
-        </S.IconButtonContainer>
-      </S.MyReview>
+          <S.Reviews>
+            {reviews.map((review, index) => (
+              <S.Review key={index}>
+                <S.UserSection>
+                  <S.UserProfile>
+                    <S.Icon src="/images/user.png" />
+                    <S.UserName>{review.nickname}</S.UserName>
+                  </S.UserProfile>
+                  <S.Rating>
+                    <S.StarRating>별점</S.StarRating>
+                    {[...Array(5)].map((_, i) => (
+                      <S.Star key={i} filled={i < review.score} />
+                    ))}
+                  </S.Rating>
+                </S.UserSection>
+                <S.ReviewTextBox>
+                  <S.ReviewSmallBox>
+                    <S.ReviewText>{review.comment}</S.ReviewText>
+                    <S.ReviewDate>{review.date}</S.ReviewDate>
+                  </S.ReviewSmallBox>
+                  {review.image && <S.ReviewImage src={review.image} />}
+                </S.ReviewTextBox>
+              </S.Review>
+            ))}
+          </S.Reviews>
+        </>
+      )}
+
+      <S.Form onSubmit={handleReviewSubmit}>
+        <S.MyReview>
+          <S.UserSection>
+            <S.UserProfile>
+              <S.Icon src="/images/user.png" />
+              <S.UserName>{nickname}</S.UserName>
+            </S.UserProfile>
+            <S.Rating>
+              <S.StarRating>별점</S.StarRating>
+              <S.Stars>
+                {[...Array(5)].map((_, i) => (
+                  <S.Star
+                    key={i}
+                    filled={i < userRating}
+                    onClick={() => handleRatingChange(i + 1)}
+                  />
+                ))}
+              </S.Stars>
+            </S.Rating>
+          </S.UserSection>
+          <S.InputReview value={userReview} onChange={handleReviewChange} />
+          <S.IconButtonContainer>
+            <S.Icon style={{ marginTop: 10 }} src="/images/attach.png" />
+            <S.WriteButton type="submit">작성</S.WriteButton>
+          </S.IconButtonContainer>
+        </S.MyReview>
+      </S.Form>
     </S.Wrapper>
   );
 }

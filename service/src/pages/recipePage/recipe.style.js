@@ -326,3 +326,7 @@ export const IconButtonContainer = styled.div`
   width: 90%;
   margin-left: 25px;
 `;
+
+export const Form = styled.div`
+  width: 100%;
+`;

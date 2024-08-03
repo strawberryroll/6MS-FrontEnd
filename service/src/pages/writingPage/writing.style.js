@@ -267,3 +267,24 @@ export const LogButton = styled.button`
     background-color: #0056b3;
   }
 `;
+
+export const Box = styled.div`
+  width: 90%;
+  height: 650px;
+  // background: gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: "Noto Sans KR";
+`;
+
+export const Text = styled.div`
+  width: 100%;
+  height: 33px;
+  padding: 16px;
+  font-weight: 400;
+  font-size: 10px;
+  text-align: center;
+`;
+

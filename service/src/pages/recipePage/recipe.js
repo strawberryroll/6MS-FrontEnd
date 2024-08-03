@@ -1,37 +1,45 @@
-// Import necessary modules and components
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import RecipePresenterPage from "./recipe.presenter";
-import { response_data } from "../../response_data"; 
+import axios from "axios";
+import NavBar from '../../components/navbarUnit/navbar';
 
-export default function RecipePage(props) {
-    const { id } = useParams(); // Destructure to get the id directly
-    const page_number = parseInt(id, 10); // Convert the id to an integer if necessary
+export default function RecipePage() {
+    const { recipeId } = useParams(); // Destructure to get the id directly
     const [data, setData] = useState(null);
+    const [reviewData, setReviewData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    // useEffect(() => {
-    //     fetch(`/board/${page_number}`)
-    //     .then((response) => response.json())
-    //     .then((data) => setData(data))
-    //     .catch((error) => console.error('Error fetching data:', error));
-    // }, [page_number]);
-
-    // Here, we're assuming `response_data` is an array and you want to get a specific recipe by id
     useEffect(() => {
-        const recipe = response_data.find(item => item.recipeId === page_number);
-        setData(recipe);
-    }, [page_number]);
+        const fetchRecipe = async () => {
+          try {
+            setLoading(true);
+            const response = await axios.get(`http://13.124.20.140:8080/board/${recipeId}`);
+            setData(response.data);
+            const reviewResponse = await axios.get(`http://13.124.20.140:8080/board/${recipeId}/comments`);
+            setReviewData(reviewResponse.data);
+          } catch (error) {
+            setError(error);
+          } finally {
+            setLoading(false);
+          }
+        };
+      
+        fetchRecipe();
+      }, [recipeId]);
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error fetching data: {error.message}</p>;
 
     return (
         <div>
             {data ? (
-                <RecipePresenterPage
-                    page_number={page_number}
-                    // response_data={data}
-                />
+                <RecipePresenterPage reviewData={reviewData} data={data} recipeId={recipeId} />
             ) : (
-                <p>Loading...</p>
+                <p>No recipe found.</p>
             )}
+            <NavBar currentPage="home" />
         </div>
     );
 }
