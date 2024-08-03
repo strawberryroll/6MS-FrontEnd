@@ -20,14 +20,20 @@
     flex-wrap: wrap;
     gap: 5px;
 }
-
 .capsule {
     background-color: #FFE0CF;
     color: #3D3D3D;
     font-size: 9px;
     padding: 4px;
     border-radius: 20px;
-}
+    box-sizing: border-box; /* 추가 */
+  }
+  
+  .capsule.clicked {
+    border: 2px solid orange;
+    box-sizing: border-box; /* 추가 */
+  }
+
 
 
 

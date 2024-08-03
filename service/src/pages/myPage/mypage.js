@@ -1,112 +1,151 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './mypage.css';
 import profileIcon from './profile.png';
-import editIcon from './마이페이지_수정.png';
-import tofuRecipeImage from './두부조림_썸네일.png';
-import eggFriedRiceImage from './계란볶음밥_썸네일.png';
-import homeIconOff from './네브바_홈_off.png';
-import myIconOn from './네브바_마이_on.png';
-import writeIconOff from './네브바_글쓰기_off.png';
+import tofuRecipeImage from './Tofu.png';
+import eggFriedRiceImage from './EggFriedRice.png';
+import homeIconOff from './nav_home_off.png';
+import myIconOn from './nav_my_on.png';
+import writeIconOff from './nav_write_off.png';
+
+const mockApiUrl = 'https://jsonplaceholder.typicode.com/posts'; // 이 부분을 나중에 실제 API URL로 대체하세요
 
 const MyPage = () => {
-const userName = "마피"; // 여기에 사용자 이름을 동적으로 설정할 수 있습니다
+  const [userName, setUserName] = useState('');
+  const [myRecipes, setMyRecipes] = useState([]);
+  const [myPicks, setMyPicks] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-return (
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userResponse = await axios.get(mockApiUrl); // 사용자 정보를 가져오는 API
+        const recipeResponse = await axios.get(mockApiUrl); // 요리 정보를 가져오는 API
+
+        // 실제 응답 데이터 구조에 맞게 데이터를 변환합니다
+        const userData = {
+          userName: '마피'
+        };
+
+        const recipeData = {
+          myRecipes: [
+            {
+              id: 1,
+              userName: userData.userName,
+              profileImage: profileIcon,
+              recipeImage: tofuRecipeImage,
+              title: '두부조림 황금레시피'
+            },
+            {
+              id: 2,
+              userName: userData.userName,
+              profileImage: profileIcon,
+              recipeImage: eggFriedRiceImage,
+              title: '계란볶음밥'
+            },
+            {
+              id: 3,
+              userName: userData.userName,
+              profileImage: profileIcon,
+              recipeImage: eggFriedRiceImage,
+              title: '계란볶음밥'
+            }
+          ],
+          myPicks: [
+            {
+              id: 1,
+              userName: '9단주부맘',
+              profileImage: profileIcon,
+              recipeImage: tofuRecipeImage,
+              title: '두부조림 황금레시피'
+            },
+            {
+              id: 2,
+              userName: '초보주부',
+              profileImage: profileIcon,
+              recipeImage: eggFriedRiceImage,
+              title: '계란볶음밥'
+            },
+            {
+              id: 3,
+              userName: '초보주부',
+              profileImage: profileIcon,
+              recipeImage: eggFriedRiceImage,
+              title: '계란볶음밥'
+            }
+          ]
+        };
+
+        setUserName(userData.userName);
+        setMyRecipes(recipeData.myRecipes);
+        setMyPicks(recipeData.myPicks);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+
+  return (
     <div className="my-page">
-    <header id="mypage_header">
+      <header id="mypage_header">
         <img id="my_profile" src={profileIcon} alt="Profile" />
         <p id="my_id">{userName}님</p>
         <img id="my_edit" src={editIcon} alt="Edit" />
-    </header>
+      </header>
 
-    <p className="category">나의 요리 경력</p>
-    <div className="mypage_container">
-        <div className="mypage_box">
-        <div className="mypage_profile">
-            <img src={profileIcon} alt="Profile" />
-            <span>{userName}님</span>
-        </div>
-        <div className="mypage_image">
-            <img src={tofuRecipeImage} alt="두부조림 황금레시피" />
-        </div>
-        <div className="mypage_title">두부조림 황금레시피</div>
-        </div>
+      <p className="category">나의 요리 경력</p>
+      <div className="mypage_container">
+        {myRecipes.map(recipe => (
+          <div className="mypage_box" key={recipe.id}>
+            <div className="mypage_profile">
+              <img src={recipe.profileImage} alt="Profile" />
+              <span>{recipe.userName}님</span>
+            </div>
+            <div className="mypage_image">
+              <img src={recipe.recipeImage} alt={recipe.title} />
+            </div>
+            <div className="mypage_title">{recipe.title}</div>
+          </div>
+        ))}
+      </div>
 
-        <div className="mypage_box">
-        <div className="mypage_profile">
-            <img src={profileIcon} alt="Profile" />
-            <span>{userName}님</span>
-        </div>
-        <div className="mypage_image">
-            <img src={eggFriedRiceImage} alt="계란볶음밥" />
-        </div>
-        <div className="mypage_title">계란볶음밥</div>
-        </div>
+      <p className="category">나의 pick</p>
+      <section className="mypage_container">
+        {myPicks.map(pick => (
+          <div className="mypage_box" key={pick.id}>
+            <div className="mypage_profile">
+              <img src={pick.profileImage} alt="Profile" />
+              <span>{pick.userName}</span>
+            </div>
+            <div className="mypage_image">
+              <img src={pick.recipeImage} alt={pick.title} />
+            </div>
+            <div className="mypage_title">{pick.title}</div>
+          </div>
+        ))}
+      </section>
 
-        <div className="mypage_box">
-        <div className="mypage_profile">
-            <img src={profileIcon} alt="Profile" />
-            <span>{userName}님</span>
+      <nav>
+        <div>
+          <img src={homeIconOff} alt="홈" />
+          <p>홈</p>
         </div>
-        <div className="mypage_image">
-            <img src={eggFriedRiceImage} alt="계란볶음밥" />
+        <div>
+          <img src={myIconOn} alt="MY" />
+          <p id="focused">MY</p>
         </div>
-        <div className="mypage_title">계란볶음밥</div>
+        <div>
+          <img src={writeIconOff} alt="글쓰기" />
+          <p id="search_result_write">글쓰기</p>
         </div>
+      </nav>
     </div>
-
-    <p className="category">나의 pick</p>
-    <section className="mypage_container">
-        <div className="mypage_box">
-        <div className="mypage_profile">
-            <img src={profileIcon} alt="Profile" />
-            <span>9단주부맘</span>
-        </div>
-        <div className="mypage_image">
-            <img src={tofuRecipeImage} alt="두부조림 황금레시피" />
-        </div>
-        <div className="mypage_title">두부조림 황금레시피</div>
-        </div>
-
-        <div className="mypage_box">
-        <div className="mypage_profile">
-            <img src={profileIcon} alt="Profile" />
-            <span>초보주부</span>
-        </div>
-        <div className="mypage_image">
-            <img src={eggFriedRiceImage} alt="계란볶음밥" />
-        </div>
-        <div className="mypage_title">계란볶음밥</div>
-        </div>
-
-        <div className="mypage_box">
-        <div className="mypage_profile">
-            <img src={profileIcon} alt="Profile" />
-            <span>초보주부</span>
-        </div>
-        <div className="mypage_image">
-            <img src={eggFriedRiceImage} alt="계란볶음밥" />
-        </div>
-        <div className="mypage_title">계란볶음밥</div>
-        </div>
-    </section>
-
-    <nav>
-        <div>
-        <img src={homeIconOff} alt="홈" />
-        <p>홈</p>
-        </div>
-        <div>
-        <img src={myIconOn} alt="MY" />
-        <p id="focused">MY</p>
-        </div>
-        <div>
-        <img src={writeIconOff} alt="글쓰기" />
-        <p id="search_result_write">글쓰기</p>
-        </div>
-    </nav>
-    </div>
-);
+  );
 };
 
-  export default MyPage;
+export default MyPage;
