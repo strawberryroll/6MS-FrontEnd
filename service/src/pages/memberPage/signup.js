@@ -1,20 +1,75 @@
 import React from 'react';
-import './signup.css'
-import icon from './cancle.png';
+import styled from '@emotion/styled';
+import icon from './cancel.png';
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const SignupForm = () => {
-    const [formData, setFormData] = useState({
-        userId: '',
-        password: '',
-        nickname: ''
-      });
-    const navigate = useNavigate();
-    const spanRefs = useRef([React.createRef(), React.createRef(), React.createRef()]);
+const Header = styled.header`
+  text-align: left;
+  margin: 62px 0 18px 0;
+`;
 
+const SignUpContainer = styled.section`
+  margin-bottom: 65px;
+`;
 
+const SignUpTitle = styled.section`
+text-align: left;
+color: #111111;
+font-size: 32px;
+margin-bottom: 32px;
+`;
+
+const TitleContainer = styled.div`
+  text-align: left;
+  margin-bottom: 16px;
+  width: 100%;
+`;
+
+const Title = styled.span`
+  display: inline-block;
+  color: #111111;
+  font-size: 16px;
+  margin-bottom: 8px;
+`;
+
+const Content = styled.div`
+  color: #828284;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid #DFE2E6;
+  padding: 16px;
+  box-sizing: border-box;
+  outline-color: #FF640D;
+  &:focus {
+    border-color: #FF640D;
+  }
+`;
+
+const Button = styled.input`
+  width: 100%;
+  border-radius: 8px;
+  background-color: #FF640D;
+  height: 58px;
+  color: white;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 0;
+  border: none;
+`;
+
+const SignUpForm = () => {
+  const [formData, setFormData] = useState({
+    userId: '',
+    password: '',
+    nickname: ''
+  });
+  const navigate = useNavigate();
+  const spanRefs = useRef([React.createRef(), React.createRef(), React.createRef()]);
 
   const handleFocus = (index) => () => {
     if (spanRefs.current[index].current) {
@@ -39,60 +94,57 @@ const SignupForm = () => {
   const submit = async (e) => {
     e.preventDefault();
     try {
-        //TODO BASE URL나오면 URL교체하기!
-        const response = await axios.post('http://test.com/signup', formData);
-        if (response.status === 200) {
-          //TODO 나중에 메인페이지로 바꾸기
-          navigate('/main');
-        }
-      } catch (error) {
-        alert("회원가입 실패");
+      const response = await axios.post('http://test.com/signup', formData);
+      if (response.status === 200) {
+        navigate('/main');
       }
-  }
+    } catch (error) {
+      alert("회원가입 실패");
+    }
+  };
 
   const back = () => {
-    //TODO 인트로 페이지로 바꾸기!
-    navigate('/intro', { replace : true });
-  }
-
-    return (
-      <>
-        <header id="top">
-          <img onClick={back} src= { icon } style={ { width : "24px", height : "24px" } } alt="Cancel Icon" />
-        </header>
-  
-        <div className="signup">
-          <span>회원가입</span>
-        </div>
-  
-        <section className='signup_container'>
-          <div className="insert">
-            <span ref={spanRefs.current[0]} className="title">아이디</span>
-            <div className="content">
-              <input name="userId" onChange={handleChange} value={formData.userId} onFocus={handleFocus(0)} onBlur={handleBlur(0)} type="text" id="id" placeholder="아이디를 입력하세요." />
-            </div>
-          </div>
-  
-          <div className="insert">
-            <span ref={spanRefs.current[1]} className="title" >비밀번호</span>
-            <div className="content">
-              <input name="password" onChange={handleChange} value={formData.password} onFocus={handleFocus(1)} onBlur={handleBlur(1)} type="password"  id="password" placeholder='비밀번호를 입력하세요.'/>
-            </div>
-          </div>
-  
-          <div className="insert">
-            <span ref={spanRefs.current[2]} className="title" >닉네임</span>
-            <div className="content">
-              <input name="nickname" onChange={handleChange} value={formData.nickname} onFocus={handleFocus(2)} onBlur={handleBlur(2)} type="text" id="nickname" placeholder="닉네임을 입력하세요." />
-            </div>
-          </div>
-        </section>
-  
-        <footer>
-          <input onClick={submit} type="submit" id="signup_button" value="회원가입" />
-        </footer>
-      </>
-    );
+    navigate('/intro', { replace: true });
   };
-  
-export default SignupForm;
+
+  return (
+    <>
+      <Header>
+        <img onClick={back} src={icon} style={{ width: "24px", height: "24px" }} alt="Cancel Icon" />
+      </Header>
+
+      <SignUpTitle >
+          <span>회원가입</span>
+      </SignUpTitle>
+
+      <SignUpContainer>
+        <TitleContainer>
+          <Title ref={spanRefs.current[0]}>아이디</Title>
+          <Content>
+            <Input name="userId" onChange={handleChange} value={formData.userId} type="text" placeholder="아이디를 입력하세요." onFocus={handleFocus(0)} onBlur={handleBlur(0)} />
+          </Content>
+        </TitleContainer>
+
+        <TitleContainer>
+          <Title ref={spanRefs.current[1]}>비밀번호</Title>
+          <Content>
+            <Input name="password" onChange={handleChange} value={formData.password} type="password" placeholder="비밀번호를 입력하세요."  onFocus={handleFocus(1)} onBlur={handleBlur(1)} />
+          </Content>
+        </TitleContainer>
+
+        <TitleContainer>
+          <Title ref={spanRefs.current[2]}>닉네임</Title>
+          <Content>
+            <Input name="nickname" onChange={handleChange} value={formData.nickname} type="text" placeholder="닉네임을 입력하세요." onFocus={handleFocus(2)} onBlur={handleBlur(2)} />
+          </Content>
+        </TitleContainer>
+      </SignUpContainer>
+
+      <footer>
+        <Button onClick={submit} type="submit" value="회원가입" />
+      </footer>
+    </>
+  );
+};
+
+export default SignUpForm;
