@@ -7,10 +7,10 @@ export let data = {
     
     recipe: { 
         review: {
-            user: "",
-            grade: 0,
+            nickname: "",
+            score: 0,
             date: "",
-            text: "",
+            comment: "",
             image: "",
         }
     },
@@ -27,6 +27,11 @@ export let data = {
         ingredient: [],
         content: [],
         requiredTime: 0,
-        recipeImages: "",
+        // recipeImages: "",
+    },
+
+    bookmark: {
+        recipeId: 0,
+        check: ""
     }
   };

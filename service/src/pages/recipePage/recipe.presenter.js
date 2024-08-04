@@ -1,14 +1,22 @@
-// recipe.presenter.js
 import * as S from "./recipe.style";
+import { Link } from 'react-router-dom';
 import { useState } from "react";
+import { data as initialData } from '../../send_data';
 
-export default function RecipePresenterPage({ data, reviewData, recipeId }) {
-  const { title, recipeImages, intro, level, servings, cost, fullRecipe, content, requiredTime, kcal, average, nickname, channel } = data;
-  const summaryWidths = [52, 36, 50, 49, 69];
+export default function RecipePresenterPage({ response_data, reviewData, recipeId }) {
+  const { title, recipeImages, intro, level, servings, cost, fullRecipe, content, requiredTime, kcal, average, nickname, channel } = response_data;
 
   const [userReview, setUserReview] = useState('');
   const [userRating, setUserRating] = useState(0);
-  const [reviews, setReviews] = useState(reviewData || []);
+  const [reviews, setReviews] = useState(reviewData);
+  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [data, setData] = useState(initialData);
+
+  const summaryWidths = [52, 36, 50, 49, 69];
+
+  const handleButton = (event) => {
+    console.log('click');
+  };
 
   const handleReviewChange = (event) => {
     setUserReview(event.target.value);
@@ -18,35 +26,58 @@ export default function RecipePresenterPage({ data, reviewData, recipeId }) {
     setUserRating(rating);
   };
 
-  const handleReviewSubmit = (event) => {
+  const logDataToConsole = () => {
+    console.log("send_data:", initialData);
+    console.log("변수 data:", data);
+    console.log("userReview, userRating", userReview, userRating);
+    console.log("reviews", reviews);
+    console.log(JSON.stringify({
+      "comment": userReview,
+      "score": userRating,})
+  )
+    console.log(recipeId);
+  };
+
+  const handleReviewSubmit = async (event) => {
     event.preventDefault();
+  
     if (userReview && userRating) {
       const newReview = {
-        nickname: nickname,
         score: userRating,
         comment: userReview,
-        date: new Date().toISOString().split("T")[0], // current date
-        image: "", // add image handling if needed
       };
+  
       setReviews([newReview, ...reviews]);
       setUserReview('');
       setUserRating(0);
-
-      // Post to server
-      fetch(`http://13.124.20.140:8080/board/${recipeId}/comment`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ user: nickname, grade: userRating, text: userReview, date: new Date().toISOString().split("T")[0] })
-      })
-      .then(response => response.json())
-      .then(result => {
-        console.log(result);
-        // Handle the response, e.g., show success message
-      })
-      .catch(error => {
-        console.error('Error:', error);
+  
+      try {
+        console.log('Sending review:', JSON.stringify(newReview, null, 2));
+  
+        const response = await fetch(`http://13.124.20.140:8080/board/${recipeId}/comment`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newReview),
+          // credentials: 'include'
+        });
+  
+        if (response.ok) {
+          const result = await response.json();
+          console.log('Response:', result);
+          alert('리뷰 작성 성공!');
+        } else {
+          console.error('서버 응답 오류:', response.status);
+        }
+      } catch (error) {
+        console.error('리뷰 작성 실패:', error);
+        alert('리뷰 작성 실패');
+      }
+    } else {
+      console.log({
+        score: userRating,
+        comment: userReview,
       });
     }
   };
@@ -56,10 +87,45 @@ export default function RecipePresenterPage({ data, reviewData, recipeId }) {
     window.open(url, '_blank');
   };
 
+  const handleBookmarkToggle = () => {
+    const updatedData = {
+      ...data,
+      bookmark: {
+        recipeId: recipeId,
+        check: !isBookmarked
+      }
+    };
+
+    setData(updatedData);
+    setIsBookmarked(!isBookmarked);
+
+    fetch(`http://13.124.20.140:8080/board/${recipeId}/pick`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(updatedData.bookmark)
+    })
+    .then(response => response.json())
+    .then(result => {
+      console.log(result);
+      // Handle the response, e.g., show success message
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  };
+
   return (
     <S.Wrapper>
       <S.CloseBox>
-        <S.Icon src="/images/close.png" style={{ marginRight: "auto" }} />
+        <Link style={{width: '100%'}} to='/home'>
+          <S.Icon src="/images/close.png" style={{ marginRight: "auto" }} />
+        </Link>
+        <S.Icon 
+          src={isBookmarked ? "/images/bookmarkOn.png" : "/images/bookmark.png"} 
+          onClick={handleBookmarkToggle} 
+        />
         <S.Icon src="/images/search.png" />
       </S.CloseBox>
 
@@ -69,15 +135,15 @@ export default function RecipePresenterPage({ data, reviewData, recipeId }) {
       )}
       <S.UserBox>
         <S.Icon src="/images/user.png" />
-        <span>{intro}</span>
+        <span>{nickname}</span>
       </S.UserBox>
 
       <S.SummaryBox>
-        <S.Summary style={{ width: `${summaryWidths[0]}px` }}> {level} </S.Summary>
-        <S.Summary style={{ width: `${summaryWidths[1]}px` }}> {servings} </S.Summary>
-        <S.Summary style={{ width: `${summaryWidths[2]}px` }}> {kcal} </S.Summary>
-        <S.Summary style={{ width: `${summaryWidths[3]}px` }}> {requiredTime} </S.Summary>
-        <S.Summary style={{ width: `${summaryWidths[4]}px` }}> {cost} </S.Summary>
+        <S.Summary style={{ width: `${summaryWidths[0]}px` }}> 난이도: {level} </S.Summary>
+        <S.Summary style={{ width: `${summaryWidths[1]}px` }}> {servings}인분 </S.Summary>
+        <S.Summary style={{ width: `${summaryWidths[2]}px` }}> {kcal}Kcal </S.Summary>
+        <S.Summary style={{ width: `${summaryWidths[3]}px` }}> {requiredTime} mins </S.Summary>
+        <S.Summary style={{ width: `${summaryWidths[4]}px` }}> {cost}원 미만 </S.Summary>
       </S.SummaryBox>
 
       <S.Title>재료</S.Title>
@@ -118,14 +184,17 @@ export default function RecipePresenterPage({ data, reviewData, recipeId }) {
       <S.UserSection>
         <S.UserProfile>
           <S.Icon src="/images/user.png" />
-          <S.UserName>{intro}</S.UserName>
+          <S.UserName>{nickname}</S.UserName>
         </S.UserProfile>
       </S.UserSection>
 
       <S.UserChannel>
+        자기소개 : <S.ChannelLink style={{color: 'black'}}>{intro}</S.ChannelLink>
+      </S.UserChannel>
+      <S.UserChannel>
         주 채널 : <S.ChannelLink href={channel}>{channel}</S.ChannelLink>
       </S.UserChannel>
-      <S.RecipeReportTitle>{intro}님이 작성한 요리 보고서 항목</S.RecipeReportTitle>
+      <S.RecipeReportTitle>{nickname}님이 작성한 요리 보고서 항목</S.RecipeReportTitle>
       <S.ReportItems>
         {[...Array(3)].map((_, i) => (
           <S.ReportItem key={i}>
@@ -203,6 +272,7 @@ export default function RecipePresenterPage({ data, reviewData, recipeId }) {
           </S.IconButtonContainer>
         </S.MyReview>
       </S.Form>
+      <S.LogButton onClick={logDataToConsole}>콘솔에 데이터 확인</S.LogButton>
     </S.Wrapper>
   );
 }

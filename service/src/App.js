@@ -3,7 +3,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/homePage/home';
 import MemberPage from './pages/memberPage/member';
-import SignUp from './pages/memberPage/signup';
+import SignUpForm from './pages/memberPage/signup';
 import LoginPage from './pages/memberPage/login';
 import MyPage from './pages/myPage/mypage';
 import SurveyPage from './pages/surveyPage/survey';
@@ -21,7 +21,7 @@ function App() {
       <Routes>
         <Route path='/' element={<StartPage />}></Route>
         <Route path='/member' element={<MemberPage />}></Route>
-        <Route path='/member/signup' element={<SignUp />}></Route>
+        <Route path='/member/signup' element={<SignUpForm />}></Route>
         <Route path='/member/login' element={<LoginPage />}></Route>
         <Route 
           path='/survey/:id' 

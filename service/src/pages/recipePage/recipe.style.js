@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
-  width: 100%;
+  width: 95%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -327,6 +327,21 @@ export const IconButtonContainer = styled.div`
   margin-left: 25px;
 `;
 
-export const Form = styled.div`
+export const Form = styled.form`
   width: 100%;
+`;
+
+export const LogButton = styled.button`
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #0056b3;
+  }
 `;

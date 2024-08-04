@@ -4,6 +4,7 @@ import NavBar from '../../components/navbarUnit/navbar';
 import { data } from "../../send_data";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { response_data } from '../../response_data';
 
 export default function WritingPage() {
   const [title, setTitle] = useState("");
@@ -14,7 +15,7 @@ export default function WritingPage() {
   const [selectedPrice, setSelectedPrice] = useState(null);
   const [ingredients, setIngredients] = useState([{ name: "", quantity: "" }]);
   const [cookingOrder, setCookingOrder] = useState([{ step: "", image: "" }]);
-  const [image, setImage] = useState('');
+  // const [image, setImage] = useState('');
   const [category, setCategory] = useState("일상"); 
   const [showCategoryOptions, setShowCategoryOptions] = useState(false);
   const [url, setUrl] = useState("");
@@ -86,10 +87,10 @@ export default function WritingPage() {
     setCookingOrder([...cookingOrder, { step: "", image: "" }]);
   };
 
-  const handleImage = (e) => {
-    setImage(e.target.files[0]);
-    data.writing.recipeImages = e.target.files[0];
-  };
+  // const handleImage = (e) => {
+  //   setImage(e.target.files[0]);
+  //   data.writing.recipeImages = e.target.files[0];
+  // };
 
   const handleCategoryClick = () => {
     setShowCategoryOptions(!showCategoryOptions);
@@ -103,6 +104,8 @@ export default function WritingPage() {
 
   const logDataToConsole = () => {
     console.log(data);
+    console.log(data.writing);
+    console.log(JSON.stringify(data.writing));
   };
 
   const validateForm = () => {
@@ -153,7 +156,8 @@ export default function WritingPage() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data.writing)
+        body: JSON.stringify(data.writing),
+        // credentials: 'include'
       })
       .then(response => response.json())
       .then(result => {
@@ -179,7 +183,7 @@ export default function WritingPage() {
       </S.CloseBox>
 
       <S.Form onSubmit={onSubmitHandler}>
-        <S.Title style={{ padding: "5px", fontSize: "32px" }}>user님의 레시피를</S.Title>
+        <S.Title style={{ padding: "5px", fontSize: "32px" }}>{response_data.user.nickname}님의 레시피를</S.Title>
         <S.Title style={{ padding: 0, fontSize: "32px", marginBottom: "25px" }}> 소개해주세요! </S.Title>
         <S.TitleInput placeholder="제목을 작성해주세요" value={title} onChange={handleTitleChange} />
         <S.ImageUpload>
@@ -187,7 +191,7 @@ export default function WritingPage() {
           <S.Input 
             type="file" 
             name='file'
-            onChange={handleImage} 
+            // onChange={handleImage} 
             style={{margin: 0, border: "none"}} 
           />
         </S.ImageUpload>
@@ -195,7 +199,7 @@ export default function WritingPage() {
 
         <S.UserBox>
           <S.Icon src="/images/user.png" />
-          <span>user</span>
+          <span>{response_data.user.nickname}</span>
         </S.UserBox>
         <S.TextArea placeholder="자기소개 한 마디를 작성해주세요" value={selfIntroduction} onChange={handleSelfIntroductionChange}></S.TextArea>
         <S.TextArea placeholder="URL 추가" value={url} onChange={handleUrlChange}></S.TextArea>

@@ -13,7 +13,9 @@ function StartPage() {
                     <Link to='/member/login'>
                         <S.OrangeBtn>로그인</S.OrangeBtn>
                     </Link>
-                    <S.SignupBtn href='/member/signup'>회원가입</S.SignupBtn>
+                    <Link to='/member/signup'>
+                        <S.SignupBtn>회원가입</S.SignupBtn>
+                    </Link>
                 </S.StartBox>
             </S.ContainerStart>
         </>

@@ -6,7 +6,7 @@ import NavBar from '../../components/navbarUnit/navbar';
 
 export default function RecipePage() {
     const { recipeId } = useParams(); // Destructure to get the id directly
-    const [data, setData] = useState(null);
+    const [response_data, setData] = useState(null);
     const [reviewData, setReviewData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -34,8 +34,8 @@ export default function RecipePage() {
 
     return (
         <div>
-            {data ? (
-                <RecipePresenterPage reviewData={reviewData} data={data} recipeId={recipeId} />
+            {response_data ? (
+                <RecipePresenterPage reviewData={reviewData} response_data={response_data} recipeId={recipeId} />
             ) : (
                 <p>No recipe found.</p>
             )}

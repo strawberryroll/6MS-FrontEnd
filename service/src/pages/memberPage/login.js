@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import xImg from './x.png'; 
 import { Link, useNavigate } from 'react-router-dom';
 import * as S from "./login.style";
+import { response_data } from '../../response_data';
 
 function LoginPage() {
   const [focus, setFocus] = useState({ id: false, password: false });
@@ -11,20 +12,26 @@ function LoginPage() {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    const response = await fetch('/api/login', {
+    const response = await fetch('http://13.124.20.140:8080/user/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ id, pw })
+      body: JSON.stringify({ userEmail: id, password: pw }, 
+        // {withCredentials: true}
+      )
     });
 
-    if (response.ok) {
+    if (response.status === 200) {
       // 서버가 유효한 자격 증명을 반환한 경우
-      navigate('/home');
+      console.log(JSON.stringify({ userEmail: id, password: pw }));
+      response_data.user.nickname = response.nickname; 
+      alert('로그인 성공!')
+      navigate('/survey/0');
     } else {
       // 자격 증명이 유효하지 않은 경우 오류 메시지 표시
       setErrorMessage('계정 정보가 일치하지 않습니다.');
+      console.log(JSON.stringify({ userEmail: id, password: pw }));
     }
   };
 

@@ -13,26 +13,34 @@ export default function SurveyPresenterPage(props) {
     e.preventDefault(); // Prevent the default form submission behavior
 
     // Store the survey data in data.survey
-    // data.survey = {
-    //   preference: preference,
-    //   purpose: purpose
-    // };
+    data.survey = {
+      preference: preference,
+      purpose: purpose,
+    };
 
     if (props.page_number === "1") { // Assuming "1" is the last page
-      fetch(`http://localhost:4000/api/survey`, {
+      fetch(`http://13.124.20.140:8080/user/survey`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data.survey)
+        body: JSON.stringify(data.survey),
       })
-      .then(response => response.json())
-      .then(result => {
-        console.log(result);
-        // Handle the response here, like showing a success message or redirecting
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.text();
+      })
+      .then(text => {
+        // 응답이 비어있는 경우 빈 객체로 처리
+        const result = text ? JSON.parse(text) : {};
+        console.log(result); // 서버로부터 받은 실제 결과를 로그로 확인
+        alert("카테고리 보내기 성공!");
       })
       .catch(error => {
         console.error('Error:', error);
+        alert("카테고리 보내기 실패");
       });
     } else {
       props.onClickNext();
@@ -41,7 +49,11 @@ export default function SurveyPresenterPage(props) {
 
   return (
     <S.Wrapper>
-      <S.CloseBox> <Link to='/home'> <S.Close src="/images/close.png" /> </Link> </S.CloseBox>
+      <S.CloseBox>
+        <Link to='/home'>
+          <S.Close src="/images/close.png" />
+        </Link>
+      </S.CloseBox>
       <S.Form onSubmit={onSubmitHandler}>
         <S.GroupBox>
           {props.page_number === "0" && (
@@ -57,7 +69,6 @@ export default function SurveyPresenterPage(props) {
             (props.page_number === "0" && purpose === "") ||
             (props.page_number === "1" && preference.length === 0)
           }
-          onClick={props.onClickNext}
         >
           선택 완료
         </S.Button>
