@@ -38,6 +38,7 @@
   export const TitleBoxHome = styled.div`
     text-align: center;
     margin: 18px 0;
+    margin-left: 24px;
   `;
   
   export const FtBig = styled.div`
