@@ -179,3 +179,16 @@
     color: inherit; 
   `;
   
+  export const Loading = styled.div`
+  text-align: center;
+  margin-top: 20px;
+  font-size: 18px;
+  color: #666;
+`;
+
+export const Error = styled.div`
+  text-align: center;
+  margin-top: 20px;
+  font-size: 18px;
+  color: red;
+`;
