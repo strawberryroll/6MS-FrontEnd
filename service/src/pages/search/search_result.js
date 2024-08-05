@@ -1,16 +1,11 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
-
+import { Link } from 'react-router-dom';
 import searchIcon from './images/search_magnifier.png';
 import searchInputIcon from './images/search_result.png';
 import profileIcon from './images/profile.png';
-import tofuRecipeImage from './images/tofuImage.png';
-import eggFriedRiceImage from './images/eggFriedRiceImage.png';
 import NavBar from '../../components/navbarUnit/navbar';
-// import homeIconOn from './images/네브바_홈_on.png';
-// import myIconOff from './images/네브바_마이_off.png';
-// import writeIconOff from './images/네브바_글쓰기_off.png';
 import icon from './images/cancle.png';
 
 const Header = styled.header`
@@ -110,14 +105,12 @@ const SearchResultTitle = styled.div`
   box-sizing: border-box;
 `;
 
-// 이미지 컴포넌트
 const StyledImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
 `;
 
-// 네비게이션 바 스타일
 const Nav = styled.nav`
   background-color: white;
   width: 100vw; /* 뷰포트의 전체 너비로 설정 */
@@ -150,7 +143,7 @@ const FocusedText = styled(NavLink)`
 
 const SearchResult = () => {
   const location = useLocation();
-  const { searchResults } = location.state || { searchResults: [] };
+  const { data } = location.state || { data: [] };
 
   return (
     <div className="result_page">
@@ -162,11 +155,11 @@ const SearchResult = () => {
 
       <Search>
         <SearchImg src={searchInputIcon} alt="" />
-        <SearchResultInput type="text" placeholder="레시피 검색하기" />
+        <Link to='/search' style={{ textDecoration: 'none' }}><SearchResultInput type="text" placeholder="레시피 검색하기" /></Link>
       </Search>
 
       <MainContainer>
-        {searchResults?.map((item, index) => (
+        {data.map((item, index) => (
           <RecipeBox key={index}>
             <Profile>
               <ProfileImage src={profileIcon} alt="" />
@@ -186,4 +179,3 @@ const SearchResult = () => {
 };
 
 export default SearchResult;
-
