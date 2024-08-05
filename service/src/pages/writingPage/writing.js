@@ -5,6 +5,7 @@ import { data } from "../../send_data";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { response_data } from '../../response_data';
+import axios from 'axios';
 
 export default function WritingPage() {
   const [title, setTitle] = useState("");
@@ -18,10 +19,33 @@ export default function WritingPage() {
   // const [image, setImage] = useState('');
   const [category, setCategory] = useState("일상"); 
   const [showCategoryOptions, setShowCategoryOptions] = useState(false);
+  const [showPurposeOptions, setShowPurposeOptions] = useState(false);
+  const [purpose, setPurpose] = useState("근육키우기");
   const [url, setUrl] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const navigate = useNavigate();
+
+  const purposeMap = {
+    "근육키우기": "training",
+    "급찐급빠": "hurry",
+    "식단조절": "meal",
+    "식욕방지": "appetite"
+  };
+
+  const categoryMap = {
+    "일상": "daily",
+    "초스피드": "speed",
+    "해장": "hangover",
+    "안주": "sojusnack",
+    "다이어트": "diet",
+    "디저트": "dessert",
+    "야식": "nightsnack",
+    "요리초보": "chobo",
+    "글로벌": "global",
+    "집들이": "homeparty",
+    "기념일": "anniversary"
+  };
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -35,7 +59,7 @@ export default function WritingPage() {
 
   const handleUrlChange = (event) => {
     setUrl(event.target.value);
-    data.writing.url = event.target.value;
+    data.writing.introUrl = event.target.value;
   };
 
   const handleMenuNameChange = (event) => {
@@ -63,7 +87,7 @@ export default function WritingPage() {
     newIngredients[index][field] = value;
     setIngredients(newIngredients);
 
-    data.writing.ingredient = newIngredients.reduce((acc, ingredient) => {
+    data.writing.fullRecipe = newIngredients.reduce((acc, ingredient) => {
       if (ingredient.name && ingredient.quantity) {
         acc.push([ingredient.name, ingredient.quantity]);
       }
@@ -92,13 +116,23 @@ export default function WritingPage() {
   //   data.writing.recipeImages = e.target.files[0];
   // };
 
+  const handlePurposeClick = () => {
+    setShowPurposeOptions(!showPurposeOptions);
+  };
+
+  const handlePurposeSelect = (selectedPurpose) => {
+    setPurpose(selectedPurpose);
+    data.writing.purpose = purposeMap[selectedPurpose];
+    setShowPurposeOptions(false);
+  };
+
   const handleCategoryClick = () => {
     setShowCategoryOptions(!showCategoryOptions);
   };
 
   const handleCategorySelect = (selectedCategory) => {
     setCategory(selectedCategory);
-    data.writing.category = selectedCategory;
+    data.writing.preference = categoryMap[selectedCategory];
     setShowCategoryOptions(false);
   };
 
@@ -148,10 +182,75 @@ export default function WritingPage() {
     return true;
   };
 
+  // const onSubmitHandler = () => {
+  //   if (validateForm()) {
+  //     const url = "/board/create"
+  //     const header = {"Content-type": "application/json"}
+  //     const postData = data.writing
+  //     axios.post(url, postData, header)
+  //       .then(response => {console.log(response.status); alert("작성 성공!");
+  //       })
+  //       .catch(err => {console.log(`Error Occured : ${err}`); alert("작성 실패"); console.log(data.writing);})
+  //   }
+  // }
+
+  // const onSubmitHandler = async (e) => {
+  //   e.preventDefault();
+  //   if (validateForm()) {
+  //     try {
+  //     const response = await fetch(`/board/create`, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify(data.writing),
+  //       // credentials: 'include'
+  //     })
+
+  //     if (response.ok) {
+  //       const result = await response.json();
+  //       console.log('Response:', result);
+  //       navigate('/success', { state: { result } });
+  //     } else {
+  //       alert('레시피 작성 실패');
+  //       console.error('서버 응답 오류:', response.status);
+  //     }}
+
+  //     catch (error) {
+  //       console.error('서버 응답 오류:', error);
+  //       alert('레시피 작성 실패');
+  //     }
+  //   }
+  // };
+
+  // const onSubmitHandler = (e) => {
+  //   e.preventDefault();
+  //   if (validateForm()) {
+  //     fetch(`/board/create`, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify(data.writing),
+  //       // credentials: 'include'
+  //     })
+  //     .then(response => response.json())
+  //     .then(result => {
+  //       console.log(result);
+  //       navigate('/success', { state: { result } });
+  //     })
+  //     .catch(error => {
+  //       console.error('Error:', error);
+  //     });
+  //   } else {
+  //     setShowPopup(true);
+  //   }
+  // };
+
   const onSubmitHandler = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      fetch(`http://13.124.20.140:8080/board/create`, {
+      fetch(`/board/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -171,6 +270,8 @@ export default function WritingPage() {
       setShowPopup(true);
     }
   };
+
+
 
   const closePopup = () => {
     setShowPopup(false);
@@ -215,11 +316,45 @@ export default function WritingPage() {
           </S.InputWrapper>
 
           <S.InputWrapper>
+            <S.Label style={{width: 60}}>운동목적</S.Label>
+            <S.RadioWrapper>
+            <S.RadioInput 
+              onClick={handlePurposeClick}
+              value={purpose}
+              readOnly
+              style = {{
+                backgroundImage: 'url("/images/arrowDown.png")',
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "right 10px center",
+              backgroundSize: "10px 5px"
+              }}
+            />
+            {showPurposeOptions && (
+              <S.CategoryOptions style={{height: 110}}>
+                {["근육키우기", "급찐급빠", "식단조절", "식욕방지"
+                ].map((option) => (
+                  <S.CategoryOption key={option}>
+                    <S.RadioButton
+                      type="radio"
+                      name="purpose"
+                      value={option}
+                      checked={purpose === option}
+                      onChange={() => handlePurposeSelect(option)}
+                    />
+                    {option}
+                  </S.CategoryOption>
+                ))}
+              </S.CategoryOptions>
+            )}
+            </S.RadioWrapper>
+          </S.InputWrapper>
+
+          <S.InputWrapper>
             <S.Label style={{width: 60}}>카테고리</S.Label>
             <S.RadioWrapper>
             <S.RadioInput 
               onClick={handleCategoryClick}
-              placeholder="카테고리를 선택해주세요"
+              // placeholder="카테고리를 선택해주세요"
               value={category}
               readOnly
               style = {{
@@ -231,8 +366,8 @@ export default function WritingPage() {
             />
             {showCategoryOptions && (
               <S.CategoryOptions>
-                {["일상", "초스피드", "해장", "안주", "다이어트", "간식",
-                "야식", "글로벌", "기념일", "집들이"
+                {["일상", "초스피드", "해장", "안주", "다이어트", "디저트",
+                "야식", "글로벌", "기념일", "집들이", "요리초보"
                 ].map((option) => (
                   <S.CategoryOption key={option}>
                     <S.RadioButton

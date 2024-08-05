@@ -15,9 +15,9 @@ export default function RecipePage() {
         const fetchRecipe = async () => {
           try {
             setLoading(true);
-            const response = await axios.get(`http://13.124.20.140:8080/board/${recipeId}`);
+            const response = await axios.get(`/board/${recipeId}`);
             setData(response.data);
-            const reviewResponse = await axios.get(`http://13.124.20.140:8080/board/${recipeId}/comments`);
+            const reviewResponse = await axios.get(`/board/${recipeId}/comments`);
             setReviewData(reviewResponse.data);
           } catch (error) {
             setError(error);

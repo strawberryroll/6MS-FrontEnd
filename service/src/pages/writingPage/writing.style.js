@@ -288,7 +288,7 @@ export const CategoryOptions = styled.div`
   // border: 1px solid #ccc;
   background: #fff;
   width: 55%;
-  height: 250px;
+  height: 280px;
   box-shadow: 2px 2px 7.5px 2px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
   padding: 10px;
