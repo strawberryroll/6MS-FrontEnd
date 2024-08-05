@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 import homeImg from "./home.png";
 import profileImg from "./profile.png";
 import writeImg from "./write.png";
@@ -26,7 +27,7 @@ function HomePage() {
       <S.SearchLink to='/search'>
         <S.Search>
           <S.SearchImg src={searchImg} />
-          <S.SearchBox>레시피 검색하기</S.SearchBox>
+          <Link to='/search' style={{textDecoration: "none"}}><S.SearchBox>레시피 검색하기</S.SearchBox></Link>
         </S.Search>
       </S.SearchLink>
       <S.Container3>

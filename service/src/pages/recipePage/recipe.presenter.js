@@ -62,7 +62,7 @@ export default function RecipePresenterPage({ response_data, reviewData, recipeI
       try {
         console.log('Sending review:', JSON.stringify(newReview, null, 2));
   
-        const response = await fetch(`/board/${recipeId}/comment`, {
+        const response = await fetch(`/api/board/${recipeId}/comment`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

@@ -122,7 +122,8 @@ export default function WritingPage() {
 
   const handlePurposeSelect = (selectedPurpose) => {
     setPurpose(selectedPurpose);
-    data.writing.purpose = purposeMap[selectedPurpose];
+    // data.writing.purpose = purposeMap[selectedPurpose];
+    data.writing.purpose = selectedPurpose;
     setShowPurposeOptions(false);
   };
 
@@ -132,7 +133,8 @@ export default function WritingPage() {
 
   const handleCategorySelect = (selectedCategory) => {
     setCategory(selectedCategory);
-    data.writing.preference = categoryMap[selectedCategory];
+    // data.writing.preference = categoryMap[selectedCategory];
+    data.writing.preference = selectedCategory;
     setShowCategoryOptions(false);
   };
 

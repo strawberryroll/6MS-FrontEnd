@@ -19,7 +19,7 @@ export default function SurveyPresenterPage(props) {
     };
 
     if (props.page_number === "1") { // Assuming "1" is the last page
-      fetch(`/user/survey`, {
+      fetch(`/api/user/survey`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

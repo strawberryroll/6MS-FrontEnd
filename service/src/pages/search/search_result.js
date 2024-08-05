@@ -1,6 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
-import './search_result.css'
+import { useLocation } from 'react-router-dom';
+import styled from '@emotion/styled';
 
 import searchIcon from './images/search_magnifier.png';
 import searchInputIcon from './images/search_result.png';
@@ -8,75 +8,182 @@ import profileIcon from './images/profile.png';
 import tofuRecipeImage from './images/tofuImage.png';
 import eggFriedRiceImage from './images/eggFriedRiceImage.png';
 import NavBar from '../../components/navbarUnit/navbar';
-// import homeIconOn from './images/네브바_홈_on.png';
-// import myIconOff from './images/네브바_마이_off.png';
-// import writeIconOff from './images/네브바_글쓰기_off.png';
+// import homeIconOn from './images/네브바_홈_on.png';
+// import myIconOff from './images/네브바_마이_off.png';
+// import writeIconOff from './images/네브바_글쓰기_off.png';
+import icon from './images/cancle.png';
 
-const SearchResultPage = () => {
+const Header = styled.header`
+  text-align: left;
+`;
+
+const ResultHeader = styled.header`
+  font-size: 32px;
+  font-weight: 500;
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const CategoryTitle = styled.p`
+  text-align: left;
+  font-size: 10px;
+  color: #757575;
+`;
+
+const Search = styled.div`
+  display: flex;
+  gap: 15px;
+  img {
+    width: 24px;
+  }
+  input {
+    width: 100%;
+    box-sizing: border-box;
+    color: #757575;
+    font-size: 16px;
+    border: none;
+    box-sizing: border-box;
+  }
+`;
+
+const SearchImg = styled.img`
+  width: 24px;
+`;
+
+const SearchResultInput = styled.input`
+  padding: 0px 10px;
+  width: 100%;
+  box-sizing: border-box;
+  color: #757575;
+  font-size: 16px;
+  border: none;
+  box-sizing: border-box;
+`;
+
+const MainContainer = styled.main`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px 25px;
+  justify-content: flex-start;
+`;
+
+const RecipeBox = styled.div`
+  width: 150px;
+  height: 220px;
+  border: 0.7px solid #ff640d;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 18px;
+  box-sizing: border-box;
+`;
+
+const Profile = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 10px;
+  gap: 5px;
+  padding: 2.5px 10px;
+  align-items: center;
+  box-sizing: border-box;
+`;
+
+const ProfileImage = styled.img`
+  width: 21px;
+  height: 21px;
+`;
+
+const ImageContainer = styled.div`
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const SearchResultTitle = styled.div`
+  text-align: left;
+  font-size: 8px;
+  padding: 15px 10px;
+  box-sizing: border-box;
+`;
+
+// 이미지 컴포넌트
+const StyledImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
+// 네비게이션 바 스타일
+const Nav = styled.nav`
+  background-color: white;
+  width: 100vw; /* 뷰포트의 전체 너비로 설정 */
+  height: 51px;
+  display: flex;
+  border-top: 0.5px solid #FFE1D1;
+  justify-content: space-between;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  box-sizing: border-box;
+  padding: 0 100px;
+`;
+
+const NavItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const NavLink = styled.p`
+  font-size: 10px;
+  margin: 0;
+`;
+
+const FocusedText = styled(NavLink)`
+  color: #ff640d;
+`;
+
+const SearchResult = () => {
+  const location = useLocation();
+  const { searchResults } = location.state || { searchResults: [] };
+
   return (
-    <div>
-      <header id="result_header">
-        <p>검색결과 <img src={searchIcon} alt="" style={{ width: '33px', height: '33px' }} /></p>
-      </header>
+    <div className="result_page">
+      <ResultHeader id="result_header">
+        <p>
+          검색결과 <img src={searchIcon} alt="" style={{ width: '33px', height: '33px' }} />
+        </p>
+      </ResultHeader>
 
-      <div id="search">
-        <img src={searchInputIcon} alt="" />
-        <input type="text" placeholder="레시피 검색하기" />
-      </div>
+      <Search>
+        <SearchImg src={searchInputIcon} alt="" />
+        <SearchResultInput type="text" placeholder="레시피 검색하기" />
+      </Search>
 
-      <main className="container">
-        <div className="box">
-          <div className="profile">
-            <img src={profileIcon} alt="" />
-            <span>9단주부맘</span>
-          </div>
-          <div className="image">
-            <img src={tofuRecipeImage} alt="" />
-          </div>
-          <div className="search_result_title">두부조림 황금레시피</div>
-        </div>
-
-        <div className="box">
-          <div className="profile">
-            <img src={profileIcon} alt="" />
-            <span>초보주부</span>
-          </div>
-          <div className="image">
-            <img src={eggFriedRiceImage} alt="" />
-          </div>
-          <div className="search_result_title">계란볶음밥</div>
-        </div>
-
-        <div className="box">
-          <div className="profile">
-            <img src={profileIcon} alt="" />
-            <span>초보주부</span>
-          </div>
-          <div className="image">
-            <img src={eggFriedRiceImage} alt="" />
-          </div>
-          <div className="search_result_title">계란볶음밥</div>
-        </div>
-      </main>
+      <MainContainer>
+        {searchResults?.map((item, index) => (
+          <RecipeBox key={index}>
+            <Profile>
+              <ProfileImage src={profileIcon} alt="" />
+              <span>{item.nickname}</span>
+            </Profile>
+            <ImageContainer>
+              <StyledImage src={item.introUrl} alt="" />
+            </ImageContainer>
+            <SearchResultTitle>{item.title}</SearchResultTitle>
+          </RecipeBox>
+        ))}
+      </MainContainer>
 
       <NavBar currentPage="home" />
-
-      {/* <nav>
-        <div>
-          <img src={homeIconOn} alt="" />
-          <p id="focused">홈</p>
-        </div>
-        <div>
-          <img src={myIconOff} alt="" />
-          <p>MY</p>
-        </div>
-        <div>
-          <img src={writeIconOff} alt="" />
-          <p id="search_result_write">글쓰기</p>
-        </div>
-      </nav> */}
     </div>
   );
 };
 
-export default SearchResultPage;
+export default SearchResult;
+
