@@ -41,43 +41,43 @@ function LoginPage() {
   };
 
   return (
-      <S.ContainerLogin>
-        <S.XBox>
-          <Link to='/'><S.XImg src={xImg} /></Link>
-        </S.XBox>
-        <S.LoginBox>
-          <S.FtBig>로그인</S.FtBig>
-          <div className={`id-box ${focus.id ? 'focused' : ''}`}>
-            <S.FtSmall className={focus.id ? 'focused' : ''}>아이디</S.FtSmall>
-            <S.TextBox 
-              type='text' 
-              placeholder={'mobile@routine.com'}
-              id='id'
-              onChange={e => setId(e.target.value)}
-              onFocus={() => setFocus({ ...focus, id: true })} 
-              onBlur={() => setFocus({ ...focus, id: false })} 
-            />
-          </div>  
-          <S.PasswordBox className={`password-box ${focus.password ? 'focused' : ''}`}>
-            <S.FtSmall className={focus.password ? 'focused' : ''}>비밀번호</S.FtSmall>
-            <S.TextBox 
-              type='password' 
-              id='password'
-              onChange={e => setPw(e.target.value)}
-              onFocus={() => setFocus({ ...focus, password: true })} 
-              onBlur={() => setFocus({ ...focus, password: false })} 
-            />
-          </S.PasswordBox>
-          {errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
-          <S.OrangeBtn 
-            className='btn-position-login'
-            onClick={handleLogin}
-          >
-            로그인
-          </S.OrangeBtn>
-        </S.LoginBox>
-      </S.ContainerLogin>
-  );
+    <S.ContainerLogin>
+      <S.XBox>
+        <Link to='/'><S.XImg src={xImg} /></Link>
+      </S.XBox>
+      <S.LoginBox>
+        <S.FtBig>로그인</S.FtBig>
+        <div className={`id-box ${focus.id ? 'focused' : ''}`}>
+          <S.FtSmall isFocused={focus.id}>아이디</S.FtSmall>
+          <S.TextBox 
+            type='text' 
+            placeholder={'mobile@routine.com'}
+            id='id'
+            onChange={e => setId(e.target.value)}
+            onFocus={() => setFocus({ ...focus, id: true })} 
+            onBlur={() => setFocus({ ...focus, id: false })} 
+          />
+        </div>  
+        <S.PasswordBox className={`password-box ${focus.password ? 'focused' : ''}`}>
+          <S.FtSmall isFocused={focus.password}>비밀번호</S.FtSmall>
+          <S.TextBox 
+            type='password' 
+            id='password'
+            onChange={e => setPw(e.target.value)}
+            onFocus={() => setFocus({ ...focus, password: true })} 
+            onBlur={() => setFocus({ ...focus, password: false })} 
+          />
+        </S.PasswordBox>
+        {errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
+        <S.OrangeBtn 
+          className='btn-position-login'
+          onClick={handleLogin}
+        >
+          로그인
+        </S.OrangeBtn>
+      </S.LoginBox>
+    </S.ContainerLogin>
+);
 }
 
 export default LoginPage;
