@@ -12,7 +12,7 @@ function LoginPage() {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    const response = await fetch('http://13.124.20.140:8080/user/login', {
+    const response = await fetch('/user/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

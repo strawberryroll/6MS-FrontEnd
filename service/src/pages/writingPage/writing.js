@@ -151,7 +151,7 @@ export default function WritingPage() {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      fetch(`http://13.124.20.140:8080/board/create`, {
+      fetch(`/board/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

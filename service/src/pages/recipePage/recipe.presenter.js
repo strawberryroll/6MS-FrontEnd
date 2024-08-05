@@ -54,7 +54,7 @@ export default function RecipePresenterPage({ response_data, reviewData, recipeI
       try {
         console.log('Sending review:', JSON.stringify(newReview, null, 2));
   
-        const response = await fetch(`http://13.124.20.140:8080/board/${recipeId}/comment`, {
+        const response = await fetch(`/board/${recipeId}/comment`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -99,7 +99,7 @@ export default function RecipePresenterPage({ response_data, reviewData, recipeI
     setData(updatedData);
     setIsBookmarked(!isBookmarked);
 
-    fetch(`http://13.124.20.140:8080/board/${recipeId}/pick`, {
+    fetch(`/board/${recipeId}/pick`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
