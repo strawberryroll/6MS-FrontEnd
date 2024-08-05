@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 
 import searchIcon from './images/search_magnifier.png';
@@ -278,7 +279,7 @@ const SearchForm = () => {
     return (
       <SearchContainer>
   <Header>
-    <img onClick={toggleComponent} src={icon} style={{ width: "24px", height: "24px", margin: "18px 0" }} alt="Cancel Icon" />
+    <Link to='/home'><img onClick={toggleComponent} src={icon} style={{ width: "24px", height: "24px", margin: "18px 0" }} alt="Cancel Icon" /></Link>
   </Header>
   <div>
     <CategoryTitle>재료</CategoryTitle>

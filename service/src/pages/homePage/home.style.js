@@ -38,12 +38,14 @@ export const Container3 = styled.div`
 export const TitleBoxHome = styled.div`
   text-align: center;
   margin: 18px 0;
+  margin-left: 24px;
+  width: 100%
 `;
 
 export const FtBig = styled.div`
   font-size: 32px;
   font-weight: 600;
-  letter-spacing: -1px;
+  letter-spacing: -5px;
   line-height: 46.4px;
   margin: 0;
 `;
@@ -176,4 +178,18 @@ export const NavP = styled.p`
 export const NavLink = styled.a`
   text-decoration: none; 
   color: inherit; 
+`;
+
+export const Loading = styled.div`
+text-align: center;
+margin-top: 20px;
+font-size: 18px;
+color: #666;
+`;
+
+export const Error = styled.div`
+text-align: center;
+margin-top: 20px;
+font-size: 18px;
+color: red;
 `;

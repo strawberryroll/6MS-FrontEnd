@@ -188,7 +188,7 @@ export default function WritingPage() {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      fetch(`/board/create`, {
+      fetch(`/api/board/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
