@@ -22,10 +22,15 @@ function LoginPage() {
       )
     });
 
+    const responseText = await response.text();
+    console.log('responseText: ', responseText);
+
     if (response.status === 200) {
       // 서버가 유효한 자격 증명을 반환한 경우
       console.log(JSON.stringify({ userEmail: id, password: pw }));
-      response_data.user.nickname = response.nickname; 
+      response_data.user.nickname = responseText;
+      // console.log("response: ",response) 
+      console.log("response_data: ",response_data)
       alert('로그인 성공!')
       navigate('/survey/0');
     } else {

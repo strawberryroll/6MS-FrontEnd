@@ -42,7 +42,7 @@ const SignupForm = () => {
     e.preventDefault();
     try {
         //TODO BASE URL나오면 URL교체하기!
-        const response = await axios.post('http://13.124.20.140:8080/user/save', formData);
+        const response = await axios.post('/user/save', formData);
         if (response.status === 200) {
           //TODO 나중에 메인페이지로 바꾸기
           console.log("formData:", formData);

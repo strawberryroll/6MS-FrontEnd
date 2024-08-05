@@ -19,7 +19,7 @@ export default function SurveyPresenterPage(props) {
     };
 
     if (props.page_number === "1") { // Assuming "1" is the last page
-      fetch(`http://13.124.20.140:8080/user/survey`, {
+      fetch(`/user/survey`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -36,6 +36,7 @@ export default function SurveyPresenterPage(props) {
         // 응답이 비어있는 경우 빈 객체로 처리
         const result = text ? JSON.parse(text) : {};
         console.log(result); // 서버로부터 받은 실제 결과를 로그로 확인
+        console.log(data.survey);
         alert("카테고리 보내기 성공!");
       })
       .catch(error => {

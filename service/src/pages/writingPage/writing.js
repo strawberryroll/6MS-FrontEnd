@@ -182,70 +182,6 @@ export default function WritingPage() {
     return true;
   };
 
-  // const onSubmitHandler = () => {
-  //   if (validateForm()) {
-  //     const url = "/board/create"
-  //     const header = {"Content-type": "application/json"}
-  //     const postData = data.writing
-  //     axios.post(url, postData, header)
-  //       .then(response => {console.log(response.status); alert("작성 성공!");
-  //       })
-  //       .catch(err => {console.log(`Error Occured : ${err}`); alert("작성 실패"); console.log(data.writing);})
-  //   }
-  // }
-
-  // const onSubmitHandler = async (e) => {
-  //   e.preventDefault();
-  //   if (validateForm()) {
-  //     try {
-  //     const response = await fetch(`/board/create`, {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json'
-  //       },
-  //       body: JSON.stringify(data.writing),
-  //       // credentials: 'include'
-  //     })
-
-  //     if (response.ok) {
-  //       const result = await response.json();
-  //       console.log('Response:', result);
-  //       navigate('/success', { state: { result } });
-  //     } else {
-  //       alert('레시피 작성 실패');
-  //       console.error('서버 응답 오류:', response.status);
-  //     }}
-
-  //     catch (error) {
-  //       console.error('서버 응답 오류:', error);
-  //       alert('레시피 작성 실패');
-  //     }
-  //   }
-  // };
-
-  // const onSubmitHandler = (e) => {
-  //   e.preventDefault();
-  //   if (validateForm()) {
-  //     fetch(`/board/create`, {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json'
-  //       },
-  //       body: JSON.stringify(data.writing),
-  //       // credentials: 'include'
-  //     })
-  //     .then(response => response.json())
-  //     .then(result => {
-  //       console.log(result);
-  //       navigate('/success', { state: { result } });
-  //     })
-  //     .catch(error => {
-  //       console.error('Error:', error);
-  //     });
-  //   } else {
-  //     setShowPopup(true);
-  //   }
-  // };
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -258,7 +194,7 @@ export default function WritingPage() {
         body: JSON.stringify(data.writing),
         // credentials: 'include'
       })
-      .then(response => response.json())
+      .then(response => response.text())
       .then(result => {
         console.log(result);
         navigate('/success', { state: { result } });
@@ -428,7 +364,7 @@ export default function WritingPage() {
               onChange={(e) => handleIngredientChange(index, "name", e.target.value)}
             />
             <S.IngredientInput
-              type="number" 
+              // type="number" 
               placeholder="개수를 입력해주세요"
               value={ingredient.quantity}
               onChange={(e) => handleIngredientChange(index, "quantity", e.target.value)}

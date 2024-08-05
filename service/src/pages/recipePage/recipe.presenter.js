@@ -42,12 +42,20 @@ export default function RecipePresenterPage({ response_data, reviewData, recipeI
     event.preventDefault();
   
     if (userReview && userRating) {
+      const visibleReview = {
+        nickname: nickname,
+        score: userRating,
+        comment: userReview,
+        date: new Date().toISOString().split("T")[0], // 현재 날짜 저장
+        // image: "", // 이미지 추가 기능을 구현하려면 여기에서 추가
+      }
+
       const newReview = {
         score: userRating,
         comment: userReview,
       };
   
-      setReviews([newReview, ...reviews]);
+      setReviews([visibleReview, ...reviews]);
       setUserReview('');
       setUserRating(0);
   
@@ -64,7 +72,8 @@ export default function RecipePresenterPage({ response_data, reviewData, recipeI
         });
   
         if (response.ok) {
-          const result = await response.json();
+          const result = await response.text();
+          // const res = result ? JSON.parse(result) : {};
           console.log('Response:', result);
           alert('리뷰 작성 성공!');
         } else {
@@ -143,7 +152,7 @@ export default function RecipePresenterPage({ response_data, reviewData, recipeI
         <S.Summary style={{ width: `${summaryWidths[1]}px` }}> {servings}인분 </S.Summary>
         <S.Summary style={{ width: `${summaryWidths[2]}px` }}> {kcal}Kcal </S.Summary>
         <S.Summary style={{ width: `${summaryWidths[3]}px` }}> {requiredTime} mins </S.Summary>
-        <S.Summary style={{ width: `${summaryWidths[4]}px` }}> {cost}원 미만 </S.Summary>
+        <S.Summary style={{ width: `${summaryWidths[4]}px` }}> {cost} </S.Summary>
       </S.SummaryBox>
 
       <S.Title>재료</S.Title>
