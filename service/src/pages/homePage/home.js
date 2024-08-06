@@ -3,7 +3,7 @@ import homeImg from "./home.png";
 import profileImg from "./profile.png";
 import writeImg from "./write.png";
 import searchImg from "./search.png";
-import profileimgImg from "./profileimg.png";
+import profileimgImg from "./logo.png";
 import { Link } from 'react-router-dom';
 import * as S from "./home.style";
 

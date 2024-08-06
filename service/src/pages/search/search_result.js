@@ -166,7 +166,8 @@ const SearchResult = () => {
                 <span>{item.nickname}</span>
               </Profile>
               <ImageContainer>
-                <StyledImage src={item.introUrl} alt="" />
+                {/* <StyledImage src={item.introUrl} alt="" /> */}
+                <StyledImage src="./images/logo.png" alt="" />
               </ImageContainer>
               <SearchResultTitle>{item.title}</SearchResultTitle>
             </RecipeBox>

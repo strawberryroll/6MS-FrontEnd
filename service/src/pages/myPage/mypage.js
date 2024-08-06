@@ -206,7 +206,7 @@ const MyPage = () => {
               <BoxProfile src={profileIcon} alt="Profile" />
               <span style={{padding : '0px 9px'}}>{recipe.nickname}님</span>
             </ProfileDetails>
-            <RecipeImage src={recipe.recipeImage} alt={recipe.title} />
+            <RecipeImage src="./images/logo.png" alt={recipe.title} />
             <RecipeTitle>{recipe.title}</RecipeTitle>
           </MyPageBox>
         ))}

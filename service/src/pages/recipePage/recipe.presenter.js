@@ -142,9 +142,10 @@ export default function RecipePresenterPage({ response_data, reviewData, recipeI
       </S.CloseBox>
 
       <S.Title>{title}</S.Title>
-      {recipeImages && recipeImages.length > 0 && (
+      <S.MainImg src="./logo.png" />
+      {/* {recipeImages && recipeImages.length > 0 && (
         <S.MainImg src={recipeImages[0]} />
-      )}
+      )} */}
       <S.UserBox>
         <S.Icon src="/images/user.png" />
         <span>{nickname}</span>
