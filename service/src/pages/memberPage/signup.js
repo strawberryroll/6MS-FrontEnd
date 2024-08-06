@@ -146,7 +146,7 @@ const SignUpForm = () => {
         <TitleContainer>
           <Title ref={spanRefs.current[2]}>닉네임</Title>
           <Content>
-            <Input name="nickname" onChange={handleChange} value={formData.nickname} type="text" placeholder="닉네임을 입력하세요." onFocus={handleFocus(2)} onBlur={handleBlur(2)} />
+            <Input name="nickname" maxLength='5' onChange={handleChange} value={formData.nickname} type="text" placeholder="닉네임을 입력하세요." onFocus={handleFocus(2)} onBlur={handleBlur(2)} />
           </Content>
         </TitleContainer>
       </SignUpContainer>

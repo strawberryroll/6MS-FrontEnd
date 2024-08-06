@@ -28,8 +28,8 @@ export default function PurposePresenter(props) {
         </S.RowGroup>
       </S.OptionGroup>
 
-      <S.Text style={{fontSize: 28}}>{response_data.user.nickname}님의 목적은</S.Text>
-      <S.Text style={{fontSize: 28}}>무엇인가요?⛹‍♀</S.Text>
+      <S.Text style={{fontSize: 23}}>{response_data.user.nickname}님의 목적은</S.Text>
+      <S.Text style={{fontSize: 23}}>무엇인가요?⛹‍♀</S.Text>
     
     </S.Wrapper>
   );
