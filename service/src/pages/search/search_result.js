@@ -1,7 +1,6 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
 import searchIcon from './images/search_magnifier.png';
 import searchInputIcon from './images/search_result.png';
 import profileIcon from './images/profile.png';
@@ -160,16 +159,18 @@ const SearchResult = () => {
 
       <MainContainer>
         {data.map((item, index) => (
-          <RecipeBox key={index}>
-            <Profile>
-              <ProfileImage src={profileIcon} alt="" />
-              <span>{item.nickname}</span>
-            </Profile>
-            <ImageContainer>
-              <StyledImage src={item.introUrl} alt="" />
-            </ImageContainer>
-            <SearchResultTitle>{item.title}</SearchResultTitle>
-          </RecipeBox>
+          <Link to={`/recipe/${item.recipeId}`} key={index} style={{ textDecoration: 'none' }}>
+            <RecipeBox>
+              <Profile>
+                <ProfileImage src={profileIcon} alt="" />
+                <span>{item.nickname}</span>
+              </Profile>
+              <ImageContainer>
+                <StyledImage src={item.introUrl} alt="" />
+              </ImageContainer>
+              <SearchResultTitle>{item.title}</SearchResultTitle>
+            </RecipeBox>
+          </Link>
         ))}
       </MainContainer>
 

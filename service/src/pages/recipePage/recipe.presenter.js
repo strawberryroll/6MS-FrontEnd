@@ -129,7 +129,10 @@ export default function RecipePresenterPage({ response_data, reviewData, recipeI
     <S.Wrapper>
       <S.CloseBox>
         <Link style={{width: '100%'}} to='/home'>
-          <S.Icon src="/images/close.png" style={{ marginRight: "auto" }} />
+          <S.Icon src="/images/close.png" 
+          // style={{ marginRight: "auto" }} 
+          style={{marginLeft: -160}}
+          />
         </Link>
         <S.Icon 
           src={isBookmarked ? "/images/bookmarkOn.png" : "/images/bookmark.png"} 

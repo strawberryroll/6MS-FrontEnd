@@ -71,6 +71,7 @@ function HomePage() {
         {cards.map(card => (
           <Card 
             key={card.id}
+            id={card.id}
             nickname={card.nickname} 
             recipeName={card.recipeName} 
             image={card.image} 
@@ -101,20 +102,22 @@ function HomePage() {
   );
 }
 
-function Card({ nickname, recipeName, image }) {
+function Card({ id, nickname, recipeName, image }) {
   return (
-    <S.RecipeCard to='#'>
-      <S.Recipe>
-        <S.RecipeProfile>
-          <S.ProfileImg src={image} />
-          <S.FtRecipe>{nickname}</S.FtRecipe>
-        </S.RecipeProfile>
-        <S.RecipeImg src={image} />
-        <S.RecipeName>
-          <S.FtRecipeSmall>{recipeName}</S.FtRecipeSmall>
-        </S.RecipeName>
-      </S.Recipe>
-    </S.RecipeCard>
+    <Link to={`/recipe/${id}`} style={{ textDecoration: 'none' }}>
+      <S.RecipeCard>
+        <S.Recipe>
+          <S.RecipeProfile>
+            <S.ProfileImg src={image} />
+            <S.FtRecipe>{nickname}</S.FtRecipe>
+          </S.RecipeProfile>
+          <S.RecipeImg src={image} />
+          <S.RecipeName>
+            <S.FtRecipeSmall>{recipeName}</S.FtRecipeSmall>
+          </S.RecipeName>
+        </S.Recipe>
+      </S.RecipeCard>
+    </Link>
   );
 }
 
