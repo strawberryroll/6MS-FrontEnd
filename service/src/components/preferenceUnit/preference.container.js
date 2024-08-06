@@ -1,8 +1,16 @@
+import React, { useState } from "react";
 import PreferencePresenter from "./preference.presenter";
 import { data } from "../../send_data";
 
 export default function PreferenceComponent(props) {
+    const [alertShown, setAlertShown] = useState(false);
+
     const onClickOption = (event) => {
+        if (!alertShown) {
+            alert("3개를 선택해주세요.");
+            setAlertShown(true);
+        }
+
         const preference = data.survey.preference;
         const groupElement = event.currentTarget;
 
@@ -21,6 +29,6 @@ export default function PreferenceComponent(props) {
         console.log(data);
         props.setPreference([...preference]); // 배열을 전달
     };
-    
+
     return <PreferencePresenter onClickOption={onClickOption} />;
-  }
+}
