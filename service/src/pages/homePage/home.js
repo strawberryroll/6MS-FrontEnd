@@ -5,6 +5,7 @@ import writeImg from "./write.png";
 import searchImg from "./search.png";
 import profileimgImg from "./logo.png";
 import { Link } from 'react-router-dom';
+import Navbar from "../../components/navbarUnit/navbar";
 import * as S from "./home.style";
 
 function HomePage() {
@@ -78,7 +79,8 @@ function HomePage() {
           />
         ))}
       </S.Container3>
-      <S.Nav>
+      <Navbar currentPage="home" />
+      {/* <S.Nav>
         <S.NavLink to='/home'>
           <S.NavDiv>
             <S.NavImg src={homeImg} alt="홈" />
@@ -97,7 +99,7 @@ function HomePage() {
             <S.NavP>글쓰기</S.NavP>
           </S.NavDiv>
         </S.NavLink>
-      </S.Nav>
+      </S.Nav> */}
     </S.Container2>
   );
 }
