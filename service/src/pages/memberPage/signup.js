@@ -97,6 +97,7 @@ const handleChange = (e) => {
 const submit = async (e) => {
   e.preventDefault();
   try {
+      console.log(formData);
       //TODO BASE URL나오면 URL교체하기!
       const response = await axios.post('/api/user/save', formData);
       if (response.status === 200) {

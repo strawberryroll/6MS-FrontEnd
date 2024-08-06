@@ -4,8 +4,11 @@ import PurposeComponent from "../../components/purposeUnit/purpose.container";
 import { useState } from "react";
 import { data } from "../../send_data";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function SurveyPresenterPage(props) {
+  const navigate = useNavigate();
+
   const [preference, setPreference] = useState([]);
   const [purpose, setPurpose] = useState("");
 
@@ -38,6 +41,7 @@ export default function SurveyPresenterPage(props) {
         console.log(result); // 서버로부터 받은 실제 결과를 로그로 확인
         console.log(data.survey);
         alert("카테고리 보내기 성공!");
+        navigate('/home'); // Navigate to the /home page
       })
       .catch(error => {
         console.error('Error:', error);
