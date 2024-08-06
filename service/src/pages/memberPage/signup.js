@@ -64,58 +64,59 @@ const Button = styled.input`
 
 const SignUpForm = () => {
   const [formData, setFormData] = useState({
-      userEmail: '',
-      password: '',
-      nickname: ''
-    });
+    userEmail: '',
+    password: '',
+    nickname: ''
+  });
   const navigate = useNavigate();
   const spanRefs = useRef([React.createRef(), React.createRef(), React.createRef()]);
 
+  const handleFocus = (index) => () => {
+    if (spanRefs.current[index].current) {
+      spanRefs.current[index].current.style.color = '#FF640D'; // focus 시 색상 변경
+    }
+  };
 
+  const handleBlur = (index) => () => {
+    if (spanRefs.current[index].current) {
+      spanRefs.current[index].current.style.color = 'black'; // focus 해제 시 원래 색상 복구
+    }
+  };
 
-const handleFocus = (index) => () => {
-  if (spanRefs.current[index].current) {
-    spanRefs.current[index].current.style.color = '#FF640D'; // focus 시 색상 변경
-  }
-};
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
 
-const handleBlur = (index) => () => {
-  if (spanRefs.current[index].current) {
-    spanRefs.current[index].current.style.color = 'black'; // focus 해제 시 원래 색상 복구
-  }
-};
+  const submit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('/api/user/save', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-const handleChange = (e) => {
-  const { name, value } = e.target;
-  setFormData({
-    ...formData,
-    [name]: value
-  });
-  // response_data.user.nickname = formData.nickname; 
-};
-
-const submit = async (e) => {
-  e.preventDefault();
-  try {
-      console.log(formData);
-      //TODO BASE URL나오면 URL교체하기!
-      const response = await axios.post('/api/user/save', formData);
-      if (response.status === 200) {
-        //TODO 나중에 메인페이지로 바꾸기
-        console.log("formData:", formData);
+      if (response.ok) {
         alert("회원가입 성공!");
-        navigate('/');
+        navigate('/member/login');
+      } else {
+        throw new Error('Network response was not ok');
       }
     } catch (error) {
+      console.log(formData);
       alert("회원가입 실패");
     }
-}
+  };
 
-const back = () => {
-  //TODO 인트로 페이지로 바꾸기!
-  navigate('/', { replace : true });
-}
-
+  const back = () => {
+    navigate('/', { replace: true });
+  };
 
   return (
     <>
@@ -131,7 +132,7 @@ const back = () => {
         <TitleContainer>
           <Title ref={spanRefs.current[0]}>아이디</Title>
           <Content>
-            <Input name="userId" onChange={handleChange} value={formData.userId} type="text" placeholder="아이디를 입력하세요." onFocus={handleFocus(0)} onBlur={handleBlur(0)} />
+            <Input name="userEmail" onChange={handleChange} value={formData.userEmail} type="text" placeholder="mobile@routine.com" onFocus={handleFocus(0)} onBlur={handleBlur(0)} />
           </Content>
         </TitleContainer>
 
